@@ -1,4 +1,5 @@
 import type { Components, Theme } from "@mui/material/styles";
+import { borderRadius } from "./spacing";
 
 export const components: Components<Theme> = {
   MuiButton: {
@@ -8,7 +9,7 @@ export const components: Components<Theme> = {
 
     styleOverrides: {
       root: {
-        borderRadius: 10,
+        borderRadius: borderRadius.md, // 12px (chia hết cho 4)
         textTransform: "none",
         fontWeight: 600,
       },
@@ -24,7 +25,7 @@ export const components: Components<Theme> = {
   MuiCard: {
     styleOverrides: {
       root: {
-        borderRadius: 16,
+        borderRadius: borderRadius.lg, // 16px (chia hết cho 4)
       },
     },
   },

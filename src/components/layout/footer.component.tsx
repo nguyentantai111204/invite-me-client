@@ -1,11 +1,14 @@
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
-import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import Link from "next/link";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import { siteConfig } from "@/config/site.config";
+import {
+  StackCol,
+  StackRowAlignJustBetween,
+} from "@/components/ui";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -14,25 +17,25 @@ export function Footer() {
     <Box
       component="footer"
       sx={{
-        backgroundColor: "#111827",
+        backgroundColor: "#1A1612",
         color: "rgba(255, 255, 255, 0.7)",
         pt: 10,
         pb: 6,
-        borderTop: "1px solid rgba(255, 255, 255, 0.08)",
+        borderTop: "1px solid rgba(183, 134, 40, 0.15)",
       }}
     >
       <Container maxWidth="lg">
         <Grid container spacing={6}>
           {/* Brand Col */}
           <Grid size={{ xs: 12, md: 4 }}>
-            <Stack spacing={2.5}>
+            <StackCol spacing={2.5}>
               <Link href="/" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: 8 }}>
                 <Box
                   sx={{
                     width: 36,
                     height: 36,
                     borderRadius: 2,
-                    background: "linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%)",
+                    background: "linear-gradient(135deg, #B78628 0%, #E58B7B 100%)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -61,7 +64,7 @@ export function Footer() {
               <Typography variant="caption" sx={{ color: "rgba(255, 255, 255, 0.5)" }}>
                 Email: {siteConfig.links.supportEmail}
               </Typography>
-            </Stack>
+            </StackCol>
           </Grid>
 
           {/* Product Links */}
@@ -69,28 +72,28 @@ export function Footer() {
             <Typography variant="subtitle1" sx={{ color: "#FFFFFF", fontWeight: 700, mb: 2.5 }}>
               Sản phẩm
             </Typography>
-            <Stack spacing={1.5}>
+            <StackCol spacing={1.5}>
               <Link href="/templates" style={{ textDecoration: "none", color: "inherit" }}>
-                <Typography variant="body2" sx={{ "&:hover": { color: "#8B5CF6" } }}>
+                <Typography variant="body2" sx={{ "&:hover": { color: "primary.light" } }}>
                   Mẫu thiệp cưới
                 </Typography>
               </Link>
               <Link href="/templates" style={{ textDecoration: "none", color: "inherit" }}>
-                <Typography variant="body2" sx={{ "&:hover": { color: "#8B5CF6" } }}>
+                <Typography variant="body2" sx={{ "&:hover": { color: "primary.light" } }}>
                   Thiệp sinh nhật
                 </Typography>
               </Link>
               <Link href="/templates" style={{ textDecoration: "none", color: "inherit" }}>
-                <Typography variant="body2" sx={{ "&:hover": { color: "#8B5CF6" } }}>
+                <Typography variant="body2" sx={{ "&:hover": { color: "primary.light" } }}>
                   Thiệp sự kiện & Party
                 </Typography>
               </Link>
               <Link href="/i/minh-linh" style={{ textDecoration: "none", color: "inherit" }}>
-                <Typography variant="body2" sx={{ "&:hover": { color: "#8B5CF6" } }}>
+                <Typography variant="body2" sx={{ "&:hover": { color: "primary.light" } }}>
                   Xem demo thực tế
                 </Typography>
               </Link>
-            </Stack>
+            </StackCol>
           </Grid>
 
           {/* Features Links */}
@@ -98,12 +101,12 @@ export function Footer() {
             <Typography variant="subtitle1" sx={{ color: "#FFFFFF", fontWeight: 700, mb: 2.5 }}>
               Tính năng
             </Typography>
-            <Stack spacing={1.5}>
+            <StackCol spacing={1.5}>
               <Typography variant="body2">Quản lý RSVP thời gian thực</Typography>
               <Typography variant="body2">Nhạc nền & Album ảnh</Typography>
               <Typography variant="body2">Tích hợp mã QR & Bản đồ</Typography>
               <Typography variant="body2">Typography phong cách riêng</Typography>
-            </Stack>
+            </StackCol>
           </Grid>
 
           {/* Company Links */}
@@ -111,41 +114,38 @@ export function Footer() {
             <Typography variant="subtitle1" sx={{ color: "#FFFFFF", fontWeight: 700, mb: 2.5 }}>
               Khám phá
             </Typography>
-            <Stack spacing={1.5}>
+            <StackCol spacing={1.5}>
               <Link href="/pricing" style={{ textDecoration: "none", color: "inherit" }}>
-                <Typography variant="body2" sx={{ "&:hover": { color: "#8B5CF6" } }}>
+                <Typography variant="body2" sx={{ "&:hover": { color: "primary.light" } }}>
                   Bảng giá dịch vụ
                 </Typography>
               </Link>
               <Link href="/about" style={{ textDecoration: "none", color: "inherit" }}>
-                <Typography variant="body2" sx={{ "&:hover": { color: "#8B5CF6" } }}>
+                <Typography variant="body2" sx={{ "&:hover": { color: "primary.light" } }}>
                   Về chúng tôi
                 </Typography>
               </Link>
               <Link href="/terms" style={{ textDecoration: "none", color: "inherit" }}>
-                <Typography variant="body2" sx={{ "&:hover": { color: "#8B5CF6" } }}>
+                <Typography variant="body2" sx={{ "&:hover": { color: "primary.light" } }}>
                   Điều khoản sử dụng
                 </Typography>
               </Link>
               <Link href="/privacy" style={{ textDecoration: "none", color: "inherit" }}>
-                <Typography variant="body2" sx={{ "&:hover": { color: "#8B5CF6" } }}>
+                <Typography variant="body2" sx={{ "&:hover": { color: "primary.light" } }}>
                   Chính sách bảo mật
                 </Typography>
               </Link>
-            </Stack>
+            </StackCol>
           </Grid>
         </Grid>
 
         {/* Bottom Bar */}
-        <Box
+        <StackRowAlignJustBetween
+          direction={{ xs: "column", sm: "row" }}
           sx={{
             mt: 8,
             pt: 4,
             borderTop: "1px solid rgba(255, 255, 255, 0.08)",
-            display: "flex",
-            flexDirection: { xs: "column", sm: "row" },
-            alignItems: "center",
-            justifyContent: "space-between",
             gap: 2,
             textAlign: { xs: "center", sm: "left" },
           }}
@@ -157,7 +157,7 @@ export function Footer() {
           <Typography variant="caption" sx={{ color: "rgba(255, 255, 255, 0.4)" }}>
             Thiết kế dành cho những khoảnh khắc đáng nhớ nhất.
           </Typography>
-        </Box>
+        </StackRowAlignJustBetween>
       </Container>
     </Box>
   );

@@ -7,8 +7,12 @@ export interface ButtonProps extends Omit<MuiButtonProps, "variant" | "color"> {
   isLoading?: boolean;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
+  target?: string;
+  rel?: string;
+  href?: string;
 }
 
+// Nút bấm tùy chỉnh với hỗ trợ loading, gradient và biểu tượng
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
@@ -28,12 +32,12 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     switch (variant) {
       case "gradient":
         customSx = {
-          background: "linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%)",
+          background: "linear-gradient(135deg, #B78628 0%, #E58B7B 100%)",
           color: "#FFFFFF",
-          boxShadow: "0 4px 14px rgba(139, 92, 246, 0.35)",
+          boxShadow: "0 4px 14px rgba(183, 134, 40, 0.35)",
           "&:hover": {
-            background: "linear-gradient(135deg, #7C3AED 0%, #DB2777 100%)",
-            boxShadow: "0 6px 20px rgba(139, 92, 246, 0.45)",
+            background: "linear-gradient(135deg, #A1721C 0%, #DE7C66 100%)",
+            boxShadow: "0 6px 20px rgba(183, 134, 40, 0.45)",
             transform: "translateY(-1px)",
           },
           transition: "all 0.2s ease",
@@ -41,19 +45,19 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         break;
       case "secondary":
         customSx = {
-          backgroundColor: "#EC4899",
+          backgroundColor: "#E58B7B",
           color: "#FFFFFF",
-          "&:hover": { backgroundColor: "#DB2777" },
+          "&:hover": { backgroundColor: "#DE7C66" },
         };
         break;
       case "outline":
         customSx = {
           backgroundColor: "transparent",
-          color: "#8B5CF6",
-          border: "1.5px solid #8B5CF6",
+          color: "#B78628",
+          border: "1.5px solid #B78628",
           "&:hover": {
-            backgroundColor: "rgba(139, 92, 246, 0.08)",
-            borderColor: "#7C3AED",
+            backgroundColor: "rgba(183, 134, 40, 0.08)",
+            borderColor: "#875C12",
           },
         };
         break;
@@ -67,9 +71,9 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       case "primary":
       default:
         customSx = {
-          backgroundColor: "#8B5CF6",
+          backgroundColor: "#B78628",
           color: "#FFFFFF",
-          "&:hover": { backgroundColor: "#7C3AED" },
+          "&:hover": { backgroundColor: "#875C12" },
         };
         break;
     }

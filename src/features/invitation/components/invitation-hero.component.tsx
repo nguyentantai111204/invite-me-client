@@ -1,7 +1,7 @@
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
-import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import { StackColAlignJustCenter } from "@/components/ui";
 import type { InvitationData } from "../types/invitation.type";
 
 interface InvitationHeroProps {
@@ -38,8 +38,8 @@ export function InvitationHero({ invitation }: InvitationHeroProps) {
       }}
     >
       <Container maxWidth="md">
-        <Stack spacing={3} sx={{ alignItems: "center" }}>
-          {/* Tagline */}
+        <StackColAlignJustCenter spacing={3}>
+          {/* Lời mở đầu */}
           <Typography
             variant="overline"
             sx={{
@@ -53,7 +53,7 @@ export function InvitationHero({ invitation }: InvitationHeroProps) {
             SAVE THE DATE • THƯ MỜI THÀNH HÔN
           </Typography>
 
-          {/* Couple Names (Calligraphy / Romantic Font) */}
+          {/* Tên dâu rể nghệ thuật */}
           <Typography
             variant="h1"
             sx={{
@@ -68,7 +68,7 @@ export function InvitationHero({ invitation }: InvitationHeroProps) {
             {groomName} & {brideName}
           </Typography>
 
-          {/* Dividing Line */}
+          {/* Đường kẻ trang trí */}
           <Box
             sx={{
               width: 80,
@@ -78,7 +78,7 @@ export function InvitationHero({ invitation }: InvitationHeroProps) {
             }}
           />
 
-          {/* Date Information */}
+          {/* Thông tin ngày cưới */}
           <Typography
             variant="h4"
             sx={{
@@ -102,7 +102,7 @@ export function InvitationHero({ invitation }: InvitationHeroProps) {
           >
             Vào lúc <strong>{eventTime}</strong> tại <strong>{location.venueName}</strong>
           </Typography>
-        </Stack>
+        </StackColAlignJustCenter>
       </Container>
     </Box>
   );

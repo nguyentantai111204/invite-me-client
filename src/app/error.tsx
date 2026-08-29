@@ -1,4 +1,6 @@
-import type { Metadata } from "next";
+"use client";
+
+import { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Container from "@mui/material/Container";
@@ -9,16 +11,17 @@ import {
   StackRowAlignJustCenter,
 } from "@/components/ui";
 
-export const metadata: Metadata = {
-  title: "404 - Không tìm thấy trang | InviteMe",
-  description: "Trang bạn đang tìm kiếm không tồn tại hoặc đã được chuyển dời.",
-  robots: {
-    index: false,
-    follow: true,
-  },
-};
+interface ErrorProps {
+  error: Error & { digest?: string };
+  reset: () => void;
+}
 
-export default function NotFound() {
+// Màn hình hiển thị lỗi máy chủ 500 (Server Error)
+export default function ErrorPage({ error, reset }: ErrorProps) {
+  useEffect(() => {
+    console.error("[Root Error Boundary]:", error);
+  }, [error]);
+
   return (
     <Container maxWidth="md">
       <StackColAlignJustCenter
@@ -30,10 +33,10 @@ export default function NotFound() {
         }}
       >
         <StackColAlignJustCenter spacing={3} sx={{ maxWidth: 580 }}>
-          {/* Hình minh họa 404 Hoàng gia */}
+          {/* Hình minh họa 500 Server Error Hoàng gia */}
           <Image
-            src="/images/notfound.png"
-            alt="404 Not Found"
+            src="/images/error.png"
+            alt="500 Server Error"
             width={340}
             height={340}
             priority
@@ -41,7 +44,7 @@ export default function NotFound() {
               maxWidth: "100%",
               height: "auto",
               objectFit: "contain",
-              filter: "drop-shadow(0 12px 24px rgba(183, 134, 40, 0.15))",
+              filter: "drop-shadow(0 12px 24px rgba(220, 38, 38, 0.12))",
             }}
           />
 
@@ -56,7 +59,7 @@ export default function NotFound() {
               fontSize: { xs: "1.75rem", sm: "2.25rem" },
             }}
           >
-            Không Tìm Thấy Trang
+            Đã Xảy Ra Lỗi Hệ Thống
           </Typography>
 
           <Typography
@@ -64,32 +67,31 @@ export default function NotFound() {
             color="text.secondary"
             sx={{ fontSize: "1.05rem", lineHeight: 1.7 }}
           >
-            Đường dẫn bạn truy cập có thể đã hết hạn, bị đổi tên hoặc không tồn tại.
-            Hãy quay về trang chủ hoặc khám phá các mẫu thiệp cưới tuyệt đẹp khác.
+            Hệ thống đang gặp gián đoạn tạm thời khi xử lý yêu cầu. Đội ngũ kỹ thuật đã
+            ghi nhận để khắc phục sớm nhất. Xin vui lòng thử lại.
           </Typography>
 
-          {/* Nhóm nút điều hướng */}
+          {/* Nút hành động thử lại và về trang chủ */}
           <StackRowAlignJustCenter
             spacing={2}
             sx={{ pt: 1.5, width: { xs: "100%", sm: "auto" }, flexWrap: "wrap" }}
           >
-            <Link href="/" style={{ textDecoration: "none" }}>
-              <Button
-                variant="gradient"
-                size="large"
-                sx={{ px: 3.5, py: 1.25, width: { xs: "100%", sm: "auto" } }}
-              >
-                Về trang chủ
-              </Button>
-            </Link>
+            <Button
+              variant="gradient"
+              size="large"
+              onClick={() => reset()}
+              sx={{ px: 3.5, py: 1.25, width: { xs: "100%", sm: "auto" } }}
+            >
+              Thử lại ngay
+            </Button>
 
-            <Link href="/templates" style={{ textDecoration: "none" }}>
+            <Link href="/" style={{ textDecoration: "none" }}>
               <Button
                 variant="outline"
                 size="large"
                 sx={{ px: 3.5, py: 1.25, width: { xs: "100%", sm: "auto" } }}
               >
-                Khám phá mẫu thiệp
+                Về trang chủ
               </Button>
             </Link>
           </StackRowAlignJustCenter>

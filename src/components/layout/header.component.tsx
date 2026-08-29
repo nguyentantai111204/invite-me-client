@@ -11,13 +11,17 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
-import Stack from "@mui/material/Stack";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
-import { Button } from "@/components/ui/button.component";
+import {
+  Button,
+  StackRowAlignJustCenter,
+  StackRowAlignJustBetween,
+  StackCol,
+} from "@/components/ui";
 
 const NAV_LINKS = [
   { label: "Mẫu thiệp", href: "/templates" },
@@ -48,19 +52,19 @@ export function Header() {
     >
       <Container maxWidth="lg">
         <Toolbar disableGutters sx={{ height: 72, justifyContent: "space-between" }}>
-          {/* Logo */}
+          {/* Logo thương hiệu */}
           <Link href="/" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: 8 }}>
             <Box
               sx={{
                 width: 38,
                 height: 38,
                 borderRadius: 2.5,
-                background: "linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%)",
+                background: "linear-gradient(135deg, #B78628 0%, #E58B7B 100%)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 color: "#FFFFFF",
-                boxShadow: "0 4px 12px rgba(139, 92, 246, 0.35)",
+                boxShadow: "0 4px 12px rgba(183, 134, 40, 0.35)",
               }}
             >
               <AutoAwesomeIcon fontSize="small" />
@@ -70,7 +74,7 @@ export function Header() {
               sx={{
                 fontWeight: 900,
                 letterSpacing: -0.5,
-                background: "linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%)",
+                background: "linear-gradient(135deg, #B78628 0%, #E58B7B 100%)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
               }}
@@ -80,10 +84,9 @@ export function Header() {
           </Link>
 
           {/* Desktop Navigation Links */}
-          <Stack
-            direction="row"
+          <StackRowAlignJustCenter
             spacing={4}
-            sx={{ display: { xs: "none", md: "flex" }, alignItems: "center" }}
+            sx={{ display: { xs: "none", md: "flex" } }}
           >
             {NAV_LINKS.map((link) => (
               <Link
@@ -100,7 +103,7 @@ export function Header() {
                 <Typography
                   component="span"
                   sx={{
-                    "&:hover": { color: "#8B5CF6" },
+                    "&:hover": { color: "primary.main" },
                     fontSize: "0.95rem",
                     fontWeight: 600,
                   }}
@@ -109,13 +112,12 @@ export function Header() {
                 </Typography>
               </Link>
             ))}
-          </Stack>
+          </StackRowAlignJustCenter>
 
           {/* Desktop Action CTAs */}
-          <Stack
-            direction="row"
+          <StackRowAlignJustCenter
             spacing={1.5}
-            sx={{ display: { xs: "none", md: "flex" }, alignItems: "center" }}
+            sx={{ display: { xs: "none", md: "flex" } }}
           >
             <Link href="/login" style={{ textDecoration: "none" }}>
               <Button variant="ghost" size="medium">
@@ -128,7 +130,7 @@ export function Header() {
                 Tạo thiệp ngay
               </Button>
             </Link>
-          </Stack>
+          </StackRowAlignJustCenter>
 
           {/* Mobile Hamburger Menu Button */}
           <IconButton
@@ -154,12 +156,12 @@ export function Header() {
           },
         }}
       >
-        <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 3 }}>
+        <StackRowAlignJustBetween sx={{ mb: 3 }}>
           <Typography
             variant="h6"
             sx={{
               fontWeight: 800,
-              background: "linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%)",
+              background: "linear-gradient(135deg, #B78628 0%, #E58B7B 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
             }}
@@ -169,7 +171,7 @@ export function Header() {
           <IconButton onClick={handleDrawerToggle}>
             <CloseIcon />
           </IconButton>
-        </Box>
+        </StackRowAlignJustBetween>
 
         <List>
           {NAV_LINKS.map((link) => (
@@ -192,7 +194,7 @@ export function Header() {
           ))}
         </List>
 
-        <Stack spacing={1.5} sx={{ mt: 4 }}>
+        <StackCol spacing={1.5} sx={{ mt: 4 }}>
           <Link href="/login" style={{ textDecoration: "none" }} onClick={handleDrawerToggle}>
             <Button variant="outline" fullWidth>
               Đăng nhập
@@ -203,7 +205,7 @@ export function Header() {
               Tạo thiệp miễn phí
             </Button>
           </Link>
-        </Stack>
+        </StackCol>
       </Drawer>
     </AppBar>
   );

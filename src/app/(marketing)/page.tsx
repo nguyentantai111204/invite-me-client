@@ -1,7 +1,6 @@
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
-import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 import Link from "next/link";
@@ -12,19 +11,26 @@ import HowToRegIcon from "@mui/icons-material/HowToReg";
 import QrCode2Icon from "@mui/icons-material/QrCode2";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import { Button } from "@/components/ui/button.component";
-import { Badge } from "@/components/ui/badge.component";
-import { Card } from "@/components/ui/card.component";
+import {
+  Button,
+  Badge,
+  Card,
+  StackRow,
+  StackRowAlignJustCenter,
+  StackRowAlignJustBetween,
+  StackCol,
+  StackColAlignJustCenter,
+} from "@/components/ui";
 
 const FEATURES = [
   {
-    icon: <AutoAwesomeIcon sx={{ fontSize: 32, color: "#8B5CF6" }} />,
+    icon: <AutoAwesomeIcon sx={{ fontSize: 32, color: "#B78628" }} />,
     title: "Typography & Thiết Kế Đẳng Cấp",
     description:
       "Tuyển tập font chữ Serif cổ điển và Calligraphy viết tay lãng mạn, mang đến vẻ đẹp hoàng gia cho từng mẫu thiệp.",
   },
   {
-    icon: <HowToRegIcon sx={{ fontSize: 32, color: "#EC4899" }} />,
+    icon: <HowToRegIcon sx={{ fontSize: 32, color: "#E58B7B" }} />,
     title: "Quản Lý Khách Mời & RSVP Realtime",
     description:
       "Khách dễ dàng xác nhận tham dự, số người đi cùng và gửi lời chúc tốt đẹp. Chủ tiệc theo dõi danh sách khách mời trực tiếp.",
@@ -36,7 +42,7 @@ const FEATURES = [
       "Tự động phát bài hát yêu thích khi khách mở thiệp, kèm thư viện ảnh cưới sắc nét và đếm ngược thời gian trực quan.",
   },
   {
-    icon: <QrCode2Icon sx={{ fontSize: 32, color: "#10B981" }} />,
+    icon: <QrCode2Icon sx={{ fontSize: 32, color: "#059669" }} />,
     title: "Bản Đồ 1-Chạm & Mừng Cưới Online",
     description:
       "Tích hợp chỉ đường Google Maps chính xác cùng mã QR tài khoản ngân hàng giúp khách phương xa dễ dàng gửi quà mừng.",
@@ -52,7 +58,7 @@ const TEMPLATES_PREVIEW = [
       "https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=600&auto=format&fit=crop",
     previewSlug: "minh-linh",
     badge: "Phổ biến nhất",
-    badgeVariant: "gold" as const,
+    badgeColor: "gold" as const,
   },
   {
     id: "minimalist-modern",
@@ -62,7 +68,7 @@ const TEMPLATES_PREVIEW = [
       "https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=600&auto=format&fit=crop",
     previewSlug: "minh-linh",
     badge: "Mới ra mắt",
-    badgeVariant: "primary" as const,
+    badgeColor: "primary" as const,
   },
   {
     id: "sweet-birthday",
@@ -72,7 +78,7 @@ const TEMPLATES_PREVIEW = [
       "https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=600&auto=format&fit=crop",
     previewSlug: "minh-linh",
     badge: "Hot Trend",
-    badgeVariant: "secondary" as const,
+    badgeColor: "secondary" as const,
   },
 ];
 
@@ -100,24 +106,22 @@ const STEPS = [
 export default function HomePage() {
   return (
     <Box sx={{ overflowX: "hidden" }}>
-      {/* ==================================================================== */}
-      {/* 1. HERO SECTION */}
-      {/* ==================================================================== */}
+      {/* 1. Hero Section */}
       <Box
         sx={{
           pt: { xs: 8, md: 14 },
           pb: { xs: 10, md: 16 },
           background:
-            "radial-gradient(ellipse at top, rgba(139, 92, 246, 0.12), transparent 70%), radial-gradient(ellipse at bottom right, rgba(236, 72, 153, 0.08), transparent 70%)",
+            "radial-gradient(ellipse at top, rgba(183, 134, 40, 0.12), transparent 70%), radial-gradient(ellipse at bottom right, rgba(229, 139, 123, 0.08), transparent 70%)",
           position: "relative",
         }}
       >
         <Container maxWidth="lg">
           <Grid container spacing={6} sx={{ alignItems: "center" }}>
-            {/* Left Content */}
+            {/* Cột trái: Giới thiệu & CTA */}
             <Grid size={{ xs: 12, md: 7 }}>
-              <Stack spacing={3} sx={{ alignItems: { xs: "center", md: "flex-start" }, textAlign: { xs: "center", md: "left" } }}>
-                <Badge variant="primary">
+              <StackCol spacing={3} sx={{ alignItems: { xs: "center", md: "flex-start" }, textAlign: { xs: "center", md: "left" } }}>
+                <Badge color="gold" size="medium">
                   ✨ Nền tảng thiết kế thiệp mời online thế hệ mới
                 </Badge>
 
@@ -134,7 +138,7 @@ export default function HomePage() {
                   <Box
                     component="span"
                     sx={{
-                      background: "linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%)",
+                      background: "linear-gradient(135deg, #B78628 0%, #E58B7B 100%)",
                       WebkitBackgroundClip: "text",
                       WebkitTextFillColor: "transparent",
                     }}
@@ -152,8 +156,8 @@ export default function HomePage() {
                   Chia sẻ link tương tác qua Zalo/Facebook, tự động nhận phản hồi RSVP thời gian thực.
                 </Typography>
 
-                {/* Action Buttons */}
-                <Stack
+                {/* Các nút hành động chính */}
+                <StackRow
                   direction={{ xs: "column", sm: "row" }}
                   spacing={2}
                   sx={{ pt: 1, width: { xs: "100%", sm: "auto" } }}
@@ -178,15 +182,11 @@ export default function HomePage() {
                       Xem mẫu thực tế
                     </Button>
                   </Link>
-                </Stack>
+                </StackRow>
 
-                {/* Social Proof */}
-                <Stack
-                  direction="row"
-                  spacing={2}
-                  sx={{ alignItems: "center", pt: 2 }}
-                >
-                  <Stack direction="row" sx={{ ml: 1 }}>
+                {/* Chứng thực người dùng */}
+                <StackRowAlignJustCenter spacing={2} sx={{ pt: 2 }}>
+                  <StackRow sx={{ ml: 1 }}>
                     {["1", "2", "3", "4"].map((item, idx) => (
                       <Avatar
                         key={item}
@@ -199,18 +199,18 @@ export default function HomePage() {
                         }}
                       />
                     ))}
-                  </Stack>
+                  </StackRow>
                   <Typography variant="body2" sx={{ fontWeight: 600, color: "text.secondary" }}>
                     ⭐ <strong>4.9/5</strong> từ hơn <strong>50.000+</strong> cặp đôi & sự kiện
                   </Typography>
-                </Stack>
-              </Stack>
+                </StackRowAlignJustCenter>
+              </StackCol>
             </Grid>
 
-            {/* Right Interactive Mockup Card */}
+            {/* Cột phải: Thẻ xem trước thiệp mẫu */}
             <Grid size={{ xs: 12, md: 5 }}>
               <Box sx={{ position: "relative", maxWidth: 420, mx: "auto" }}>
-                {/* Background Glow */}
+                {/* Hiệu ứng ánh sáng nền */}
                 <Box
                   sx={{
                     position: "absolute",
@@ -220,13 +220,13 @@ export default function HomePage() {
                     width: 320,
                     height: 320,
                     borderRadius: "50%",
-                    background: "linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(236, 72, 153, 0.3))",
+                    background: "linear-gradient(135deg, rgba(183, 134, 40, 0.3), rgba(229, 139, 123, 0.3))",
                     filter: "blur(60px)",
                     zIndex: 0,
                   }}
                 />
 
-                {/* Floating Preview Card */}
+                {/* Card mẫu thiệp nổi */}
                 <Card
                   glassmorphism
                   hoverEffect
@@ -268,24 +268,20 @@ export default function HomePage() {
                     </Typography>
                   </Box>
 
-                  <Stack
-                    direction="row"
-                    spacing={2}
-                    sx={{ mt: 2.5, justifyContent: "space-between", alignItems: "center" }}
-                  >
-                    <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
-                      <FavoriteIcon sx={{ color: "#EC4899", fontSize: 20 }} />
+                  <StackRowAlignJustBetween sx={{ mt: 2.5 }}>
+                    <StackRowAlignJustCenter spacing={1}>
+                      <FavoriteIcon sx={{ color: "#DE7C66", fontSize: 20 }} />
                       <Typography variant="body2" sx={{ fontWeight: 700 }}>
                         128 Khách đã xác nhận
                       </Typography>
-                    </Stack>
+                    </StackRowAlignJustCenter>
 
                     <Link href="/i/minh-linh" style={{ textDecoration: "none" }}>
                       <Button variant="outline" size="small">
                         Mở thiệp
                       </Button>
                     </Link>
-                  </Stack>
+                  </StackRowAlignJustBetween>
                 </Card>
               </Box>
             </Grid>
@@ -293,20 +289,18 @@ export default function HomePage() {
         </Container>
       </Box>
 
-      {/* ==================================================================== */}
-      {/* 2. FEATURES HIGHLIGHT SECTION */}
-      {/* ==================================================================== */}
+      {/* 2. Tính năng nổi bật */}
       <Box sx={{ py: 12, backgroundColor: "#FFFFFF" }}>
         <Container maxWidth="lg">
-          <Stack spacing={2} sx={{ alignItems: "center", textAlign: "center", mb: 8 }}>
-            <Badge variant="primary">TÍNH NĂNG ĐỘT PHÁ</Badge>
+          <StackColAlignJustCenter spacing={2} sx={{ textAlign: "center", mb: 8 }}>
+            <Badge color="primary" size="medium">TÍNH NĂNG ĐỘT PHÁ</Badge>
             <Typography variant="h2" sx={{ fontWeight: 800, fontSize: { xs: "2rem", md: "2.75rem" } }}>
               Mọi Thứ Bạn Cần Cho Một Tấm Thiệp Hoàn Hảo
             </Typography>
             <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 620, fontSize: "1.1rem" }}>
               Không còn tốn kém chi phí in ấn hay lo thất lạc thiệp giấy. InviteMe mang đến trải nghiệm mời cưới hiện đại nhất.
             </Typography>
-          </Stack>
+          </StackColAlignJustCenter>
 
           <Grid container spacing={4}>
             {FEATURES.map((feature, idx) => (
@@ -335,17 +329,15 @@ export default function HomePage() {
         </Container>
       </Box>
 
-      {/* ==================================================================== */}
-      {/* 3. FEATURED TEMPLATES SHOWCASE */}
-      {/* ==================================================================== */}
-      <Box sx={{ py: 12, backgroundColor: "#F9FAFB" }}>
+      {/* 3. Bộ sưu tập mẫu thiệp nổi bật */}
+      <Box sx={{ py: 12, backgroundColor: "background.default" }}>
         <Container maxWidth="lg">
-          <Stack
+          <StackRowAlignJustBetween
             direction={{ xs: "column", md: "row" }}
-            sx={{ justifyContent: "space-between", alignItems: { xs: "flex-start", md: "flex-end" }, mb: 6 }}
+            sx={{ alignItems: { xs: "flex-start", md: "flex-end" }, mb: 6 }}
           >
             <Box>
-              <Badge variant="gold">BỘ SƯU TẬP TUYỂN CHỌN</Badge>
+              <Badge color="gold" size="medium">BỘ SƯU TẬP TUYỂN CHỌN</Badge>
               <Typography variant="h2" sx={{ fontWeight: 800, fontSize: { xs: "2rem", md: "2.75rem" }, mt: 1 }}>
                 Mẫu Thiệp Mời Nổi Bật
               </Typography>
@@ -359,7 +351,7 @@ export default function HomePage() {
                 Xem toàn bộ mẫu thiệp
               </Button>
             </Link>
-          </Stack>
+          </StackRowAlignJustBetween>
 
           <Grid container spacing={4}>
             {TEMPLATES_PREVIEW.map((tpl) => (
@@ -384,7 +376,7 @@ export default function HomePage() {
                     }}
                   >
                     <Box sx={{ position: "absolute", top: 16, left: 16 }}>
-                      <Badge variant={tpl.badgeVariant}>{tpl.badge}</Badge>
+                      <Badge color={tpl.badgeColor} size="small">{tpl.badge}</Badge>
                     </Box>
                   </Box>
 
@@ -398,7 +390,7 @@ export default function HomePage() {
                       </Typography>
                     </Box>
 
-                    <Stack direction="row" spacing={1.5}>
+                    <StackRow spacing={1.5}>
                       <Link href={`/i/${tpl.previewSlug}`} style={{ textDecoration: "none", flex: 1 }}>
                         <Button variant="outline" size="small" fullWidth>
                           Xem thử
@@ -410,7 +402,7 @@ export default function HomePage() {
                           Dùng mẫu này
                         </Button>
                       </Link>
-                    </Stack>
+                    </StackRow>
                   </Box>
                 </Card>
               </Grid>
@@ -419,27 +411,26 @@ export default function HomePage() {
         </Container>
       </Box>
 
-      {/* ==================================================================== */}
-      {/* 4. HOW IT WORKS */}
-      {/* ==================================================================== */}
+      {/* 4. Quy trình tạo thiệp 3 bước */}
       <Box sx={{ py: 12, backgroundColor: "#FFFFFF" }}>
         <Container maxWidth="lg">
-          <Stack spacing={2} sx={{ alignItems: "center", textAlign: "center", mb: 8 }}>
-            <Badge variant="primary">QUY TRÌNH ĐƠN GIẢN</Badge>
+          <StackColAlignJustCenter spacing={2} sx={{ textAlign: "center", mb: 8 }}>
+            <Badge color="primary" size="medium">QUY TRÌNH ĐƠN GIẢN</Badge>
             <Typography variant="h2" sx={{ fontWeight: 800, fontSize: { xs: "2rem", md: "2.75rem" } }}>
               Tạo Thiệp Mời Trong 3 Bước
             </Typography>
-          </Stack>
+          </StackColAlignJustCenter>
 
           <Grid container spacing={4}>
             {STEPS.map((step) => (
               <Grid key={step.number} size={{ xs: 12, md: 4 }}>
                 <Card
+                  hoverEffect
                   sx={{
                     p: 4,
                     height: "100%",
                     borderRadius: 3.5,
-                    border: "1px solid rgba(139, 92, 246, 0.15)",
+                    border: "1px solid rgba(183, 134, 40, 0.15)",
                     position: "relative",
                   }}
                 >
@@ -448,7 +439,7 @@ export default function HomePage() {
                     sx={{
                       fontSize: "3.5rem",
                       fontWeight: 900,
-                      color: "rgba(139, 92, 246, 0.15)",
+                      color: "rgba(183, 134, 40, 0.2)",
                       lineHeight: 1,
                       mb: 2,
                     }}
@@ -468,22 +459,20 @@ export default function HomePage() {
         </Container>
       </Box>
 
-      {/* ==================================================================== */}
-      {/* 5. CALL TO ACTION BANNER */}
-      {/* ==================================================================== */}
+      {/* 5. Banner kêu gọi hành động cuối trang */}
       <Box sx={{ py: 10, px: 2 }}>
         <Container maxWidth="lg">
           <Box
             sx={{
               borderRadius: 5,
-              background: "linear-gradient(135deg, #7C3AED 0%, #EC4899 100%)",
+              background: "linear-gradient(135deg, #B78628 0%, #E58B7B 100%)",
               color: "#FFFFFF",
               p: { xs: 5, md: 8 },
               textAlign: "center",
-              boxShadow: "0 24px 60px rgba(124, 58, 237, 0.35)",
+              boxShadow: "0 24px 60px rgba(183, 134, 40, 0.35)",
             }}
           >
-            <Stack spacing={3} sx={{ alignItems: "center", maxWidth: 680, mx: "auto" }}>
+            <StackColAlignJustCenter spacing={3} sx={{ maxWidth: 680, mx: "auto" }}>
               <Typography
                 variant="h2"
                 sx={{
@@ -499,7 +488,7 @@ export default function HomePage() {
                 Đăng ký tài khoản miễn phí ngay hôm nay và tạo dấu ấn đặc biệt cho ngày trọng đại.
               </Typography>
 
-              <Stack
+              <StackRow
                 direction={{ xs: "column", sm: "row" }}
                 spacing={2}
                 sx={{ pt: 1, width: { xs: "100%", sm: "auto" } }}
@@ -510,8 +499,8 @@ export default function HomePage() {
                     size="large"
                     sx={{
                       backgroundColor: "#FFFFFF",
-                      color: "#7C3AED",
-                      "&:hover": { backgroundColor: "#F3F4F6" },
+                      color: "#B78628",
+                      "&:hover": { backgroundColor: "#FDFBF7" },
                       py: 1.6,
                       px: 4,
                       fontSize: "1.05rem",
@@ -537,33 +526,32 @@ export default function HomePage() {
                     Xem thiệp mẫu Demo
                   </Button>
                 </Link>
-              </Stack>
+              </StackRow>
 
-              <Stack
-                direction="row"
+              <StackRowAlignJustCenter
                 spacing={3}
-                sx={{ pt: 2, flexWrap: "wrap", justifyContent: "center", opacity: 0.9 }}
+                sx={{ pt: 2, flexWrap: "wrap", opacity: 0.9 }}
               >
-                <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
+                <StackRowAlignJustCenter spacing={1}>
                   <CheckCircleIcon sx={{ fontSize: 18 }} />
                   <Typography variant="caption" sx={{ fontSize: "0.85rem" }}>
                     Hoàn toàn miễn phí khởi tạo
                   </Typography>
-                </Stack>
-                <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
+                </StackRowAlignJustCenter>
+                <StackRowAlignJustCenter spacing={1}>
                   <CheckCircleIcon sx={{ fontSize: 18 }} />
                   <Typography variant="caption" sx={{ fontSize: "0.85rem" }}>
                     Không giới hạn lượt khách xem
                   </Typography>
-                </Stack>
-                <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
+                </StackRowAlignJustCenter>
+                <StackRowAlignJustCenter spacing={1}>
                   <CheckCircleIcon sx={{ fontSize: 18 }} />
                   <Typography variant="caption" sx={{ fontSize: "0.85rem" }}>
                     Tương thích 100% điện thoại di động
                   </Typography>
-                </Stack>
-              </Stack>
-            </Stack>
+                </StackRowAlignJustCenter>
+              </StackRowAlignJustCenter>
+            </StackColAlignJustCenter>
           </Box>
         </Container>
       </Box>

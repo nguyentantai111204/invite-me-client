@@ -4,3 +4,4 @@ export * from "./modal.component";
 export * from "./card.component";
 export * from "./badge.component";
 export * from "./stack.component";
+export * from "./empty-state.component";

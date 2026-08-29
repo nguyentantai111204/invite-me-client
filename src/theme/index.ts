@@ -36,3 +36,5 @@ export const theme = createTheme({
 
 export * from "./colors";
 export * from "./styles";
+export * from "./spacing";
+export * from "./typography";

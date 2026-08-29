@@ -1,10 +1,12 @@
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Container from "@mui/material/Container";
-import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import {
+  Button,
+  Card,
+  StackColAlignJustCenter,
+} from "@/components/ui";
 import type { EventLocation, InvitationThemeConfig } from "../types/invitation.type";
 
 interface InvitationLocationProps {
@@ -17,8 +19,8 @@ export function InvitationLocation({ location, themeConfig }: InvitationLocation
 
   return (
     <Container maxWidth="md" sx={{ py: 8 }}>
-      {/* Section Header */}
-      <Stack spacing={1.5} sx={{ alignItems: "center", textAlign: "center", mb: 6 }}>
+      {/* Tiêu đề mục địa điểm */}
+      <StackColAlignJustCenter spacing={1.5} sx={{ textAlign: "center", mb: 6 }}>
         <Typography
           variant="overline"
           sx={{
@@ -41,10 +43,11 @@ export function InvitationLocation({ location, themeConfig }: InvitationLocation
           Nơi Hạnh Phúc Bắt Đầu
         </Typography>
         <Box sx={{ width: 50, height: 2, backgroundColor: primaryColor }} />
-      </Stack>
+      </StackColAlignJustCenter>
 
-      {/* Location Card */}
+      {/* Thông tin chi tiết địa điểm */}
       <Card
+        hoverEffect
         sx={{
           borderRadius: 4,
           boxShadow: "0 12px 32px rgba(0,0,0,0.06)",
@@ -83,14 +86,12 @@ export function InvitationLocation({ location, themeConfig }: InvitationLocation
 
           {location.mapUrl && (
             <Button
-              variant="contained"
+              variant="primary"
               href={location.mapUrl}
               target="_blank"
               rel="noopener noreferrer"
               size="large"
               sx={{
-                backgroundColor: primaryColor,
-                "&:hover": { backgroundColor: "#966A1E" },
                 px: 4,
                 py: 1.25,
                 borderRadius: 3,

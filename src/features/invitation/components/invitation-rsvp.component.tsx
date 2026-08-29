@@ -3,17 +3,19 @@
 import { useState } from "react";
 import Alert from "@mui/material/Alert";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import CircularProgress from "@mui/material/CircularProgress";
 import Container from "@mui/material/Container";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
-import Stack from "@mui/material/Stack";
-import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
+import {
+  Button,
+  Card,
+  Input,
+  StackCol,
+  StackColAlignJustCenter,
+} from "@/components/ui";
 import { invitationService } from "../services/invitation.service";
 import type { InvitationThemeConfig } from "../types/invitation.type";
 
@@ -55,7 +57,6 @@ export function InvitationRsvp({ invitationId, themeConfig }: InvitationRsvpProp
       });
 
       setStatus({ type: "success", message: res.message });
-      // Reset form if attending
       if (attending === "yes") {
         setWishes("");
       }
@@ -72,8 +73,8 @@ export function InvitationRsvp({ invitationId, themeConfig }: InvitationRsvpProp
   return (
     <Box sx={{ py: 8, backgroundColor: "rgba(183, 134, 40, 0.04)" }}>
       <Container maxWidth="sm">
-        {/* Section Header */}
-        <Stack spacing={1.5} sx={{ alignItems: "center", textAlign: "center", mb: 4 }}>
+        {/* Tiêu đề mục RSVP */}
+        <StackColAlignJustCenter spacing={1.5} sx={{ textAlign: "center", mb: 4 }}>
           <Typography
             variant="overline"
             sx={{
@@ -98,7 +99,7 @@ export function InvitationRsvp({ invitationId, themeConfig }: InvitationRsvpProp
           <Typography variant="body2" color="text.secondary" sx={{ maxWidth: 400 }}>
             Để chuẩn bị đón tiếp chu đáo nhất, xin vui lòng phản hồi trước ngày cưới.
           </Typography>
-        </Stack>
+        </StackColAlignJustCenter>
 
         <Card
           sx={{
@@ -116,8 +117,8 @@ export function InvitationRsvp({ invitationId, themeConfig }: InvitationRsvpProp
             )}
 
             <form onSubmit={handleSubmit}>
-              <Stack spacing={2.5}>
-                <TextField
+              <StackCol spacing={2.5}>
+                <Input
                   label="Họ và tên của bạn *"
                   value={guestName}
                   onChange={(e) => setGuestName(e.target.value)}
@@ -125,7 +126,7 @@ export function InvitationRsvp({ invitationId, themeConfig }: InvitationRsvpProp
                   required
                 />
 
-                <TextField
+                <Input
                   label="Số điện thoại"
                   value={phoneNumber}
                   onChange={(e) => setPhoneNumber(e.target.value)}
@@ -155,7 +156,7 @@ export function InvitationRsvp({ invitationId, themeConfig }: InvitationRsvpProp
                 </Box>
 
                 {attending === "yes" && (
-                  <TextField
+                  <Input
                     label="Số lượng người đi cùng"
                     type="number"
                     value={numberOfGuests}
@@ -165,7 +166,7 @@ export function InvitationRsvp({ invitationId, themeConfig }: InvitationRsvpProp
                   />
                 )}
 
-                <TextField
+                <Input
                   label="Gửi lời chúc đến dâu rể"
                   value={wishes}
                   onChange={(e) => setWishes(e.target.value)}
@@ -177,21 +178,20 @@ export function InvitationRsvp({ invitationId, themeConfig }: InvitationRsvpProp
 
                 <Button
                   type="submit"
-                  variant="contained"
-                  disabled={loading}
+                  variant="primary"
+                  isLoading={loading}
                   size="large"
+                  fullWidth
                   sx={{
-                    backgroundColor: primaryColor,
-                    "&:hover": { backgroundColor: "#966A1E" },
                     py: 1.5,
                     borderRadius: 3,
                     fontWeight: 700,
                     fontSize: "1rem",
                   }}
                 >
-                  {loading ? <CircularProgress size={24} color="inherit" /> : "Gửi Xác Nhận"}
+                  Gửi Xác Nhận
                 </Button>
-              </Stack>
+              </StackCol>
             </form>
           </CardContent>
         </Card>

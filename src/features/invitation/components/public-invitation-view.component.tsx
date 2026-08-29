@@ -1,10 +1,12 @@
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
-import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import Link from "next/link";
 import { getTemplateFontVariables } from "@/config/fonts.config";
+import {
+  Button,
+  StackColAlignJustCenter,
+} from "@/components/ui";
 import type { InvitationData } from "../types/invitation.type";
 import { InvitationHero } from "./invitation-hero.component";
 import { InvitationCountdown } from "./invitation-countdown.component";
@@ -75,14 +77,14 @@ export function PublicInvitationView({ invitation }: PublicInvitationViewProps) 
         />
       )}
 
-      {/* 7. Floating Music Player */}
+      {/* 7. Trình phát nhạc nền */}
       <InvitationMusic
         musicUrl={invitation.themeConfig.musicUrl}
         autoPlay={invitation.themeConfig.autoPlayMusic}
         accentColor={invitation.themeConfig.primaryColor}
       />
 
-      {/* 8. Footer Branding */}
+      {/* 8. Footer quảng bá thương hiệu */}
       <Box
         sx={{
           py: 6,
@@ -92,13 +94,13 @@ export function PublicInvitationView({ invitation }: PublicInvitationViewProps) 
         }}
       >
         <Container maxWidth="sm">
-          <Stack spacing={2} sx={{ alignItems: "center" }}>
+          <StackColAlignJustCenter spacing={2}>
             <Typography variant="body2">
               Thiệp mời điện tử được tạo bởi <strong>InviteMe</strong>
             </Typography>
             <Link href="/" style={{ textDecoration: "none" }}>
               <Button
-                variant="outlined"
+                variant="outline"
                 size="small"
                 sx={{
                   color: "#FFFFFF",
@@ -111,7 +113,7 @@ export function PublicInvitationView({ invitation }: PublicInvitationViewProps) 
                 Tạo thiệp mời tương tự miễn phí
               </Button>
             </Link>
-          </Stack>
+          </StackColAlignJustCenter>
         </Container>
       </Box>
     </Box>

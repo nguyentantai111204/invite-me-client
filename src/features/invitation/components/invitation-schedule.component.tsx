@@ -1,8 +1,11 @@
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
-import Paper from "@mui/material/Paper";
-import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import {
+  Card,
+  StackCol,
+  StackColAlignJustCenter,
+} from "@/components/ui";
 import type { EventScheduleItem, InvitationThemeConfig } from "../types/invitation.type";
 
 interface InvitationScheduleProps {
@@ -16,8 +19,8 @@ export function InvitationSchedule({ schedule, themeConfig }: InvitationSchedule
   return (
     <Box sx={{ py: 8, backgroundColor: "rgba(183, 134, 40, 0.04)" }}>
       <Container maxWidth="md">
-        {/* Section Header */}
-        <Stack spacing={1.5} sx={{ alignItems: "center", textAlign: "center", mb: 6 }}>
+        {/* Tiêu đề mục lịch trình */}
+        <StackColAlignJustCenter spacing={1.5} sx={{ textAlign: "center", mb: 6 }}>
           <Typography
             variant="overline"
             sx={{
@@ -40,14 +43,14 @@ export function InvitationSchedule({ schedule, themeConfig }: InvitationSchedule
             Chương Trình Tiệc Cưới
           </Typography>
           <Box sx={{ width: 50, height: 2, backgroundColor: primaryColor }} />
-        </Stack>
+        </StackColAlignJustCenter>
 
-        {/* Schedule Items Timeline */}
-        <Stack spacing={3}>
+        {/* Danh sách các mốc thời gian */}
+        <StackCol spacing={3}>
           {schedule.map((item, index) => (
-            <Paper
+            <Card
               key={item.id || index}
-              elevation={0}
+              hoverEffect
               sx={{
                 p: { xs: 2.5, sm: 3.5 },
                 borderRadius: 3,
@@ -56,14 +59,9 @@ export function InvitationSchedule({ schedule, themeConfig }: InvitationSchedule
                 flexDirection: { xs: "column", sm: "row" },
                 alignItems: { xs: "flex-start", sm: "center" },
                 gap: { xs: 1.5, sm: 4 },
-                transition: "transform 0.2s ease, box-shadow 0.2s ease",
-                "&:hover": {
-                  transform: "translateY(-2px)",
-                  boxShadow: "0 8px 24px rgba(0,0,0,0.06)",
-                },
               }}
             >
-              {/* Time Badge */}
+              {/* Huy hiệu thời gian */}
               <Box
                 sx={{
                   minWidth: 100,
@@ -81,7 +79,7 @@ export function InvitationSchedule({ schedule, themeConfig }: InvitationSchedule
                 {item.time}
               </Box>
 
-              {/* Event Content */}
+              {/* Nội dung sự kiện */}
               <Box sx={{ flex: 1 }}>
                 <Typography
                   variant="h5"
@@ -100,9 +98,9 @@ export function InvitationSchedule({ schedule, themeConfig }: InvitationSchedule
                   </Typography>
                 )}
               </Box>
-            </Paper>
+            </Card>
           ))}
-        </Stack>
+        </StackCol>
       </Container>
     </Box>
   );

@@ -1,11 +1,13 @@
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
-import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import {
+  Card,
+  StackColAlignJustCenter,
+} from "@/components/ui";
 import type { WeddingCouple, InvitationThemeConfig } from "../types/invitation.type";
 
 interface InvitationCoupleProps {
@@ -19,8 +21,8 @@ export function InvitationCouple({ couple, themeConfig }: InvitationCoupleProps)
 
   return (
     <Container maxWidth="lg" sx={{ py: 8 }}>
-      {/* Title */}
-      <Stack spacing={1.5} sx={{ alignItems: "center", textAlign: "center", mb: 6 }}>
+      {/* Tiêu đề mục cô dâu chú rể */}
+      <StackColAlignJustCenter spacing={1.5} sx={{ textAlign: "center", mb: 6 }}>
         <Typography
           variant="overline"
           sx={{
@@ -43,13 +45,14 @@ export function InvitationCouple({ couple, themeConfig }: InvitationCoupleProps)
           Nhân Vật Chính
         </Typography>
         <Box sx={{ width: 50, height: 2, backgroundColor: primaryColor }} />
-      </Stack>
+      </StackColAlignJustCenter>
 
-      {/* Couple Cards */}
+      {/* Thông tin 2 nhân vật chính */}
       <Grid container spacing={4} sx={{ justifyContent: "center" }}>
-        {/* Groom */}
+        {/* Chú rể */}
         <Grid size={{ xs: 12, md: 5 }}>
           <Card
+            hoverEffect
             sx={{
               height: "100%",
               borderRadius: 4,
@@ -101,9 +104,10 @@ export function InvitationCouple({ couple, themeConfig }: InvitationCoupleProps)
           </Card>
         </Grid>
 
-        {/* Bride */}
+        {/* Cô dâu */}
         <Grid size={{ xs: 12, md: 5 }}>
           <Card
+            hoverEffect
             sx={{
               height: "100%",
               borderRadius: 4,
@@ -156,7 +160,7 @@ export function InvitationCouple({ couple, themeConfig }: InvitationCoupleProps)
         </Grid>
       </Grid>
 
-      {/* Love Story Section */}
+      {/* Câu chuyện tình yêu */}
       {loveStory && (
         <Box
           sx={{

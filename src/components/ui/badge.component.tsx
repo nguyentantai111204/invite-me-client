@@ -1,48 +1,67 @@
 import React from "react";
 import Box, { type BoxProps } from "@mui/material/Box";
 
-export interface BadgeProps extends BoxProps {
+export interface BadgeProps extends Omit<BoxProps, "color"> {
+  color?: "primary" | "secondary" | "gold" | "success" | "neutral";
   variant?: "primary" | "secondary" | "gold" | "success" | "neutral";
+  size?: "small" | "medium" | "large";
   children: React.ReactNode;
 }
 
+// Huy hiệu nhãn danh mục và trạng thái
 export function Badge({
+  color,
   variant = "primary",
+  size = "medium",
   children,
   sx,
   ...props
 }: BadgeProps) {
-  let style = {
-    backgroundColor: "rgba(139, 92, 246, 0.1)",
-    color: "#8B5CF6",
-    border: "1px solid rgba(139, 92, 246, 0.2)",
+  const activeColor = color || variant;
+
+  let colorStyle = {
+    backgroundColor: "rgba(183, 134, 40, 0.12)",
+    color: "#B78628",
+    border: "1px solid rgba(183, 134, 40, 0.25)",
   };
 
-  if (variant === "secondary") {
-    style = {
-      backgroundColor: "rgba(236, 72, 153, 0.1)",
-      color: "#EC4899",
-      border: "1px solid rgba(236, 72, 153, 0.2)",
+  if (activeColor === "secondary") {
+    colorStyle = {
+      backgroundColor: "rgba(229, 139, 123, 0.12)",
+      color: "#E58B7B",
+      border: "1px solid rgba(229, 139, 123, 0.25)",
     };
-  } else if (variant === "gold") {
-    style = {
+  } else if (activeColor === "primary") {
+    colorStyle = {
       backgroundColor: "rgba(183, 134, 40, 0.12)",
       color: "#B78628",
       border: "1px solid rgba(183, 134, 40, 0.25)",
     };
-  } else if (variant === "success") {
-    style = {
-      backgroundColor: "rgba(16, 185, 129, 0.1)",
-      color: "#10B981",
-      border: "1px solid rgba(16, 185, 129, 0.2)",
+  } else if (activeColor === "gold") {
+    colorStyle = {
+      backgroundColor: "rgba(183, 134, 40, 0.15)",
+      color: "#875C12",
+      border: "1px solid rgba(183, 134, 40, 0.3)",
     };
-  } else if (variant === "neutral") {
-    style = {
-      backgroundColor: "rgba(107, 114, 128, 0.1)",
-      color: "#4B5563",
-      border: "1px solid rgba(107, 114, 128, 0.2)",
+  } else if (activeColor === "success") {
+    colorStyle = {
+      backgroundColor: "rgba(5, 150, 105, 0.1)",
+      color: "#059669",
+      border: "1px solid rgba(5, 150, 105, 0.2)",
+    };
+  } else if (activeColor === "neutral") {
+    colorStyle = {
+      backgroundColor: "rgba(107, 94, 75, 0.1)",
+      color: "#6B5E4B",
+      border: "1px solid rgba(107, 94, 75, 0.2)",
     };
   }
+
+  const sizeStyle = {
+    small: { px: 1, py: 0.25, fontSize: "0.7rem" },
+    medium: { px: 1.5, py: 0.5, fontSize: "0.75rem" },
+    large: { px: 2, py: 0.75, fontSize: "0.85rem" },
+  }[size];
 
   return (
     <Box
@@ -50,14 +69,12 @@ export function Badge({
       sx={{
         display: "inline-flex",
         alignItems: "center",
-        px: 1.5,
-        py: 0.5,
         borderRadius: 2,
-        fontSize: "0.75rem",
         fontWeight: 700,
         textTransform: "uppercase",
         letterSpacing: 0.5,
-        ...style,
+        ...sizeStyle,
+        ...colorStyle,
         ...sx,
       }}
       {...props}
