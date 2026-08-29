@@ -1,4 +1,5 @@
 import type { BaseEntity } from "./common.type";
+import type { InvitationThemeConfig, Invitation } from "./invitation.type";
 
 export type TemplateCategorySlug =
   | "wedding"
@@ -15,13 +16,7 @@ export interface TemplateCategory extends BaseEntity {
   templateCount?: number;
 }
 
-export interface TemplateTheme {
-  fontIds: string[];
-  primaryColor: string;
-  secondaryColor: string;
-  accentColor?: string;
-  backgroundColor?: string;
-}
+export type TemplateTheme = InvitationThemeConfig;
 
 export interface InvitationTemplate extends BaseEntity {
   title: string;
@@ -32,6 +27,12 @@ export interface InvitationTemplate extends BaseEntity {
   isPremium: boolean;
   isNew?: boolean;
   isPopular?: boolean;
-  themeConfig: TemplateTheme;
-  sampleData?: Record<string, unknown>;
+  themeConfig: InvitationThemeConfig;
+  sampleData?: Partial<Invitation>;
+}
+
+export interface TemplatePreset extends InvitationTemplate {
+  description: string;
+  previewSlug: string;
+  tags: string[];
 }

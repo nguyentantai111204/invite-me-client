@@ -115,6 +115,8 @@ const MOCK_INVITATIONS: Record<string, InvitationData> = {
     },
     rsvpEnabled: true,
     isPublished: true,
+    createdAt: "2026-08-20T00:00:00.000Z",
+    updatedAt: "2026-08-20T00:00:00.000Z",
   },
 };
 
@@ -152,6 +154,8 @@ export const invitationService = {
         id: `inv-${slug}`,
         slug,
         title: `Lễ Thành Hôn (${slug.toUpperCase()})`,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
       };
     } catch (error) {
       console.error(`[invitationService.getPublicInvitationBySlug] Error:`, error);

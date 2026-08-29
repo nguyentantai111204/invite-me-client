@@ -53,35 +53,80 @@ export interface BankAccountInfo {
 
 export interface InvitationThemeConfig {
   fontIds: string[];
-  primaryColor?: string;
-  secondaryColor?: string;
+  primaryColor: string;
+  secondaryColor: string;
   accentColor?: string;
   backgroundColor?: string;
   musicUrl?: string;
   autoPlayMusic?: boolean;
 }
 
+export interface InvitationSectionVisibility {
+  hero: boolean;
+  countdown: boolean;
+  couple: boolean;
+  loveStory: boolean;
+  schedule: boolean;
+  location: boolean;
+  gallery: boolean;
+  bankAccounts: boolean;
+  rsvp: boolean;
+  music: boolean;
+}
+
+export interface RsvpConfig {
+  enabled: boolean;
+  deadline?: string;
+  allowGuestsCount?: boolean;
+  maxGuestsPerResponse?: number;
+  requirePhone?: boolean;
+}
+
+// Model tài liệu thiệp mời chính thức (Unified Invitation Document Model)
 export interface Invitation extends BaseEntity {
+  userId?: string | null;
   slug: string;
   title: string;
   description?: string;
   eventType: InvitationEventType;
+  templateId?: string;
+
+  // Trạng thái xuất bản
+  isPublished: boolean;
+  publishedAt?: string | null;
+  passwordProtected?: boolean;
+  password?: string | null;
+
+  // Media chính
   coverImage: string;
   ogImage: string;
   eventDate: string; // ISO 8601 string
-  eventTime: string;
+  eventTime: string; // e.g. "11:30"
+
+  // Cấu hình theme & fonts
+  themeConfig: InvitationThemeConfig;
+
+  // Trạng thái hiển thị các section
+  sectionVisibility?: InvitationSectionVisibility;
+  sectionOrder?: Array<keyof InvitationSectionVisibility>;
+
+  // Dữ liệu chi tiết các section
   couple?: WeddingCouple;
   location: EventLocation;
   schedule: EventScheduleItem[];
   gallery?: string[];
   bankAccounts?: BankAccountInfo[];
-  themeConfig: InvitationThemeConfig;
+
+  // Cấu hình RSVP
   rsvpEnabled: boolean;
-  isPublished: boolean;
+  rsvpConfig?: RsvpConfig;
 }
 
+// Alias tương thích ngược
 export type InvitationData = Invitation;
+export type InvitationDocument = Invitation;
 
+// Dữ liệu gửi phản hồi RSVP từ khách mời
 export interface RsvpSubmissionPayload {
   invitationId: string;
   guestName: string;
@@ -92,6 +137,7 @@ export interface RsvpSubmissionPayload {
   wishes?: string;
 }
 
+// Bản ghi RSVP lưu trữ trong CSDL
 export interface RsvpRecord extends BaseEntity {
   invitationId: string;
   guestName: string;
@@ -100,4 +146,37 @@ export interface RsvpRecord extends BaseEntity {
   numberOfGuests: number;
   dietaryRequirements?: string;
   wishes?: string;
+}
+
+// Payload khởi tạo / cập nhật thiệp
+export interface CreateInvitationPayload {
+  templateId?: string;
+  slug: string;
+  title: string;
+  eventType: InvitationEventType;
+  eventDate: string;
+  eventTime: string;
+  themeConfig: Partial<InvitationThemeConfig>;
+  couple?: WeddingCouple;
+  location: EventLocation;
+}
+
+export interface UpdateInvitationPayload extends Partial<CreateInvitationPayload> {
+  description?: string;
+  coverImage?: string;
+  ogImage?: string;
+  schedule?: EventScheduleItem[];
+  gallery?: string[];
+  bankAccounts?: BankAccountInfo[];
+  rsvpEnabled?: boolean;
+  rsvpConfig?: RsvpConfig;
+  sectionVisibility?: InvitationSectionVisibility;
+  isPublished?: boolean;
+}
+
+// Payload claim draft từ anonymous sang user
+export interface ClaimDraftPayload {
+  draftId: string;
+  slug: string;
+  draftData: Partial<Invitation>;
 }

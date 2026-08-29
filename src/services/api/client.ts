@@ -1,4 +1,5 @@
 import { envConfig } from "@/config/env.config";
+import { STORAGE_KEYS } from "@/constants/storage.constant";
 
 // Chuẩn hóa lỗi API trả về từ NestJS Backend
 export class ApiError extends Error {
@@ -39,8 +40,8 @@ export interface RequestOptions extends RequestInit {
 function getClientAuthToken(): string | null {
   if (typeof window === "undefined") return null;
   return (
-    localStorage.getItem("inviteme_auth_token") ||
-    sessionStorage.getItem("inviteme_auth_token")
+    localStorage.getItem(STORAGE_KEYS.AUTH_TOKEN) ||
+    sessionStorage.getItem(STORAGE_KEYS.AUTH_TOKEN)
   );
 }
 
