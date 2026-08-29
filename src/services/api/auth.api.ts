@@ -29,30 +29,22 @@ export interface RegisterDto {
 }
 
 export const authApi = {
-  /**
-   * Đăng nhập người dùng
-   */
+  // Đăng nhập người dùng
   login(dto: LoginDto): Promise<AuthResponse> {
     return httpClient.post<AuthResponse>("/auth/login", dto);
   },
 
-  /**
-   * Đăng ký tài khoản mới
-   */
+  // Đăng ký tài khoản mới
   register(dto: RegisterDto): Promise<AuthResponse> {
     return httpClient.post<AuthResponse>("/auth/register", dto);
   },
 
-  /**
-   * Lấy thông tin tài khoản hiện tại
-   */
+  // Lấy thông tin tài khoản hiện tại
   getMe(): Promise<UserProfile> {
     return httpClient.get<UserProfile>("/auth/me");
   },
 
-  /**
-   * Đăng xuất
-   */
+  // Đăng xuất tài khoản
   logout(): Promise<{ success: boolean }> {
     return httpClient.post<{ success: boolean }>("/auth/logout");
   },

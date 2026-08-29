@@ -11,9 +11,16 @@ export const theme = createTheme({
     primary: colors.primary,
     secondary: colors.secondary,
 
+    error: colors.status.error,
+    warning: colors.status.warning,
+    info: colors.status.info,
+    success: colors.status.success,
+
+    divider: colors.divider,
+
     background: {
-      default: colors.background.light,
-      paper: colors.background.light,
+      default: colors.background.default,
+      paper: colors.background.paper,
     },
 
     text: {
@@ -26,3 +33,6 @@ export const theme = createTheme({
 
   components,
 });
+
+export * from "./colors";
+export * from "./styles";

@@ -1,11 +1,4 @@
-/**
- * ============================================================================
- * SITE CONFIGURATION (SEO & Brand Constants)
- * ============================================================================
- * Chứa toàn bộ thông tin nền tảng, metadata SEO, URL và social links của InviteMe.
- * Dùng chung cho RootLayout, Robots, Sitemap, OpenGraph và Schema.org.
- */
-
+// Thông tin thương hiệu, SEO metadata và liên kết mạng xã hội
 import { envConfig } from "./env.config";
 
 export const siteConfig = {

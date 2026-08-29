@@ -11,25 +11,16 @@ import {
   Plus_Jakarta_Sans,
 } from "next/font/google";
 
-// Font mặc định duy nhất được load ở Root Layout cho toàn bộ hệ thống:
+// Font chính của hệ thống UI, Dashboard và Marketing
 export const fontSans = Inter({
   subsets: ["latin", "vietnamese"],
   variable: "--font-inter",
   display: "swap",
 });
 
-/**
+// Tuyển tập font cho thiệp mời (Chỉ nạp khi template được xem)
 
- * CÁC FONT NGHỆ THUẬT DÀNH CHO THIỆP MỜI (Wedding, Luxury, Modern, Birthday).
- *
- * NGUYÊN TẮC ZERO-GLOBAL-BLOAT:
- * - Không import tất cả font vào Root Layout (`src/app/layout.tsx`).
- * - Mỗi Template hoặc trang Invitation cụ thể (`/i/[slug]`) chỉ inject className/variable
- *   của font mà template đó sử dụng.
- * - Next.js và Webpack sẽ tự động code-split, chỉ tải font khi trang có sử dụng font đó.
- */
-
-// --- Nhóm Serif: Sang trọng, Hoàng gia, Thiệp cưới cổ điển ---
+// Nhóm Serif: Sang trọng, Hoàng gia, Thiệp cưới cổ điển
 export const fontPlayfair = Playfair_Display({
   subsets: ["latin", "vietnamese"],
   variable: "--font-playfair",

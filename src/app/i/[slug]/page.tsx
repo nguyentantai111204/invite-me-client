@@ -8,13 +8,7 @@ interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
-/**
- * ============================================================================
- * GENERATE DYNAMIC METADATA (SEO & OpenGraph for Social Sharing)
- * ============================================================================
- * Đảm bảo khi gửi link thiệp mời qua Facebook, Zalo, iMessage, Telegram...
- * sẽ hiển thị ảnh bìa, tiêu đề tên dâu rể và ngày cưới đẹp mắt.
- */
+// Tạo dynamic metadata cho SEO và OpenGraph khi chia sẻ Facebook/Zalo
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const invitation = await invitationService.getPublicInvitationBySlug(slug);
@@ -60,11 +54,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-/**
- * ============================================================================
- * PUBLIC INVITATION SERVER COMPONENT
- * ============================================================================
- */
+// Server Component hiển thị thiệp mời công khai
 export default async function PublicInvitationPage({ params }: PageProps) {
   const { slug } = await params;
   const invitation = await invitationService.getPublicInvitationBySlug(slug);

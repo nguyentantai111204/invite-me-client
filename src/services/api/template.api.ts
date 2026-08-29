@@ -27,23 +27,17 @@ export interface InvitationTemplate {
 }
 
 export const templateApi = {
-  /**
-   * Lấy danh sách mẫu thiệp có hỗ trợ lọc theo danh mục
-   */
+  // Lấy danh sách mẫu thiệp có hỗ trợ lọc theo danh mục
   getTemplates(params?: { category?: string; search?: string; page?: number }): Promise<InvitationTemplate[]> {
     return httpClient.get<InvitationTemplate[]>("/templates", { params });
   },
 
-  /**
-   * Lấy chi tiết một mẫu thiệp theo slug
-   */
+  // Lấy chi tiết một mẫu thiệp theo slug
   getTemplateBySlug(slug: string): Promise<InvitationTemplate> {
     return httpClient.get<InvitationTemplate>(`/templates/${slug}`);
   },
 
-  /**
-   * Lấy danh sách danh mục mẫu thiệp
-   */
+  // Lấy danh sách danh mục mẫu thiệp
   getCategories(): Promise<TemplateCategory[]> {
     return httpClient.get<TemplateCategory[]>("/templates/categories");
   },

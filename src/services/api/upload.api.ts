@@ -9,9 +9,7 @@ export interface UploadResponse {
 }
 
 export const uploadApi = {
-  /**
-   * Tải ảnh lên máy chủ (Cloudinary / S3 qua NestJS)
-   */
+  // Tải ảnh lên máy chủ (Cloudinary / S3 qua NestJS)
   uploadImage(file: File): Promise<UploadResponse> {
     const formData = new FormData();
     formData.append("file", file);
@@ -20,9 +18,7 @@ export const uploadApi = {
     return httpClient.upload<UploadResponse>("/uploads/image", formData);
   },
 
-  /**
-   * Tải nhạc nền lên máy chủ (.mp3, .m4a)
-   */
+  // Tải nhạc nền lên máy chủ (.mp3, .m4a)
   uploadAudio(file: File): Promise<UploadResponse> {
     const formData = new FormData();
     formData.append("file", file);

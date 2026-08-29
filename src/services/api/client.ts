@@ -1,8 +1,6 @@
 import { envConfig } from "@/config/env.config";
 
-/**
- * Chuẩn hóa lỗi API trả về từ NestJS Backend
- */
+// Chuẩn hóa lỗi API trả về từ NestJS Backend
 export class ApiError extends Error {
   statusCode: number;
   errors?: string[] | Record<string, string[]>;
@@ -19,9 +17,7 @@ export class ApiError extends Error {
   }
 }
 
-/**
- * Định dạng Response chuẩn của NestJS Backend
- */
+// Định dạng Response chuẩn của NestJS Backend
 export interface ApiResponse<T = unknown> {
   statusCode?: number;
   message?: string;
@@ -39,9 +35,7 @@ export interface RequestOptions extends RequestInit {
   token?: string;
 }
 
-/**
- * Lấy Auth Token từ client storage
- */
+// Lấy Auth Token từ client storage
 function getClientAuthToken(): string | null {
   if (typeof window === "undefined") return null;
   return (
@@ -50,9 +44,7 @@ function getClientAuthToken(): string | null {
   );
 }
 
-/**
- * HTTP Client trung tâm phục vụ toàn bộ API Services
- */
+// HTTP Client trung tâm phục vụ toàn bộ API Services
 async function request<T>(
   endpoint: string,
   options: RequestOptions = {}
@@ -100,7 +92,7 @@ async function request<T>(
   try {
     const response = await fetch(url, config);
 
-    // Xử lý lỗi 204 No Content
+    // Xử lý khi API trả về 204 No Content
     if (response.status === 204) {
       return {} as T;
     }
@@ -165,9 +157,7 @@ export const httpClient = {
     return request<T>(endpoint, { ...options, method: "DELETE" });
   },
 
-  /**
-   * Upload file (FormData)
-   */
+  // Tải lên file ảnh hoặc âm thanh dạng FormData
   async upload<T>(
     endpoint: string,
     formData: FormData,

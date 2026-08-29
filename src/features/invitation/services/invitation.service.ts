@@ -6,9 +6,7 @@ import type {
 
 const API_BASE_URL = envConfig.apiUrl;
 
-/**
- * Dữ liệu mẫu phục vụ phát triển & hiển thị khi chưa nối API Backend.
- */
+// Dữ liệu mẫu phục vụ phát triển & hiển thị khi chưa nối API Backend
 const MOCK_INVITATIONS: Record<string, InvitationData> = {
   "minh-linh": {
     id: "inv-001",
@@ -120,13 +118,9 @@ const MOCK_INVITATIONS: Record<string, InvitationData> = {
   },
 };
 
-/**
- * Service xử lý dữ liệu Public Invitation
- */
+// Service xử lý dữ liệu thiệp mời
 export const invitationService = {
-  /**
-   * Lấy dữ liệu thiệp mời công khai theo Slug trên Server Side (SSR/SSG).
-   */
+  // Lấy dữ liệu thiệp mời công khai theo Slug trên Server Side (SSR)
   async getPublicInvitationBySlug(slug: string): Promise<InvitationData | null> {
     try {
       // Khi đã có Backend API thực tế
@@ -165,9 +159,7 @@ export const invitationService = {
     }
   },
 
-  /**
-   * Gửi phản hồi RSVP từ khách mời
-   */
+  // Gửi phản hồi RSVP từ khách mời
   async submitRsvp(payload: RsvpSubmissionPayload): Promise<{ success: boolean; message: string }> {
     try {
       if (process.env.NODE_ENV === "production" && process.env.NEXT_PUBLIC_API_URL) {
