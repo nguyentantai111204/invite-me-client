@@ -98,7 +98,14 @@ export function InvitationHero({ invitation }: InvitationHeroProps) {
               opacity: 0.9,
             }}
           >
-            Vào lúc <strong>{eventTime}</strong> tại <strong>{location.venueName}</strong>
+            Vào lúc{" "}
+            <Typography component="span" sx={{ fontWeight: fontWeights.bold }}>
+              {eventTime}
+            </Typography>{" "}
+            tại{" "}
+            <Typography component="span" sx={{ fontWeight: fontWeights.bold }}>
+              {location.venueName}
+            </Typography>
           </Typography>
         </StackColAlignJustCenter>
       </Container>

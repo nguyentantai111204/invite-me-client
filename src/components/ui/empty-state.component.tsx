@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import type { SxProps, Theme } from "@mui/material/styles";
 import { StackColAlignJustCenter } from "./stack.component";
@@ -75,7 +76,7 @@ export function EmptyState({
       )}
 
       {/* Nút hành động bổ sung */}
-      {action && <div style={{ marginTop: paddings.md }}>{action}</div>}
+      {action && <Box sx={{ mt: `${paddings.md}px` }}>{action}</Box>}
     </StackColAlignJustCenter>
   );
 }

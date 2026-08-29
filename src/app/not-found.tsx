@@ -8,7 +8,6 @@ import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import { fontPlayfair } from "@/config/fonts.config";
 import {
   Button,
-  Badge,
   StackCenter,
   StackColAlignJustCenter,
   StackRowAlignJustCenter,
@@ -41,12 +40,8 @@ export default function NotFound() {
     >
       <Container maxWidth="sm">
         <StackColAlignJustCenter spacing={3} sx={{ textAlign: "center" }}>
-          {/* Huy hiệu trạng thái */}
-          <Badge color="gold" size="medium">
-            404 • KHÔNG TÌM THẤY TRANG
-          </Badge>
 
-          {/* Vòng hoa minh họa 404 Hoàng gia (Sử dụng mixBlendMode: multiply) */}
+          {/* Vòng hoa minh họa 404 */}
           <StackCenter
             sx={{
               position: "relative",
@@ -70,7 +65,6 @@ export default function NotFound() {
             />
           </StackCenter>
 
-          {/* Tiêu đề Serif sang trọng */}
           <Typography
             variant="h2"
             component="h1"

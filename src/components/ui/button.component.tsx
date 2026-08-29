@@ -103,6 +103,14 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       <MuiButton
         ref={ref}
         disabled={disabled || isLoading}
+        startIcon={
+          isLoading ? (
+            <CircularProgress size={20} color="inherit" />
+          ) : (
+            leftIcon
+          )
+        }
+        endIcon={!isLoading ? rightIcon : undefined}
         sx={{
           borderRadius: `${borderRadius.sm}px`,
           textTransform: "none",
@@ -116,15 +124,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         }}
         {...props}
       >
-        {isLoading ? (
-          <CircularProgress size={20} color="inherit" sx={{ mr: children ? 1 : 0 }} />
-        ) : (
-          leftIcon && <span style={{ display: "inline-flex", marginRight: 8, alignItems: "center" }}>{leftIcon}</span>
-        )}
         {children}
-        {!isLoading && rightIcon && (
-          <span style={{ display: "inline-flex", marginLeft: 8, alignItems: "center" }}>{rightIcon}</span>
-        )}
       </MuiButton>
     );
   }

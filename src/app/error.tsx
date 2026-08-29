@@ -10,7 +10,6 @@ import HomeIcon from "@mui/icons-material/Home";
 import { fontPlayfair } from "@/config/fonts.config";
 import {
   Button,
-  Badge,
   StackCenter,
   StackColAlignJustCenter,
   StackRowAlignJustCenter,
@@ -42,9 +41,6 @@ export default function ErrorPage({ error, reset }: ErrorProps) {
     >
       <Container maxWidth="sm">
         <StackColAlignJustCenter spacing={3} sx={{ textAlign: "center" }}>
-          <Badge color="gold" size="medium">
-            500 • LỖI MÁY CHỦ
-          </Badge>
 
           <StackCenter
             sx={{
@@ -124,21 +120,21 @@ export default function ErrorPage({ error, reset }: ErrorProps) {
               Thử lại ngay
             </Button>
 
-            <Link href="/" style={{ textDecoration: "none" }}>
-              <Button
-                variant="outline"
-                size="large"
-                leftIcon={<HomeIcon />}
-                sx={{
-                  px: 4,
-                  py: 1.4,
-                  fontSize: "1rem",
-                  width: { xs: "100%", sm: "auto" },
-                }}
-              >
-                Về trang chủ
-              </Button>
-            </Link>
+            <Button
+              component={Link}
+              href="/"
+              variant="outline"
+              size="large"
+              leftIcon={<HomeIcon />}
+              sx={{
+                px: 4,
+                py: 1.4,
+                fontSize: "1rem",
+                width: { xs: "100%", sm: "auto" },
+              }}
+            >
+              Về trang chủ
+            </Button>
           </StackRowAlignJustCenter>
         </StackColAlignJustCenter>
       </Container>

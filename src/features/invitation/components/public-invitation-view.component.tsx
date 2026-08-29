@@ -9,6 +9,7 @@ import {
 } from "@/components/ui";
 import { colors } from "@/theme/colors";
 import { borderRadius, paddings } from "@/theme/spacing";
+import { fontWeights } from "@/theme/typography";
 import type { InvitationData } from "../types/invitation.type";
 import { InvitationHero } from "./invitation-hero.component";
 import { InvitationCountdown } from "./invitation-countdown.component";
@@ -98,7 +99,10 @@ export function PublicInvitationView({ invitation }: PublicInvitationViewProps) 
         <Container maxWidth="sm">
           <StackColAlignJustCenter spacing={2}>
             <Typography variant="body2">
-              Thiệp mời điện tử được tạo bởi <strong>TTNT</strong>
+              Thiệp mời điện tử được tạo bởi{" "}
+              <Typography component="span" sx={{ fontWeight: fontWeights.bold }}>
+                TTNT
+              </Typography>
             </Typography>
             <Link href="/" style={{ textDecoration: "none" }}>
               <Button

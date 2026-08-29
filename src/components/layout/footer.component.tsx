@@ -34,7 +34,7 @@ export function Footer() {
           {/* Brand Col */}
           <Grid size={{ xs: 12, md: 4 }}>
             <StackCol spacing={2.5}>
-              <Link href="/" style={{ textDecoration: "none" }}>
+              <Link href="/" style={{ textDecoration: "none", color: "inherit", display: "inline-flex" }}>
                 <StackRowAlignJustCenter spacing={1.5} sx={{ justifyContent: "flex-start" }}>
                   {/* Logo với nền blend multiply */}
                   <StackCenter
@@ -99,16 +99,48 @@ export function Footer() {
             </Typography>
             <StackCol spacing={1.5}>
               <Link href="/templates" style={{ textDecoration: "none", color: "inherit" }}>
-                <Typography variant="body2" sx={{ "&:hover": { color: colors.gold.light } }}>Mẫu thiệp cưới</Typography>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    "&:hover": { color: colors.gold.light },
+                    transition: "color 0.2s ease",
+                  }}
+                >
+                  Mẫu thiệp cưới
+                </Typography>
               </Link>
               <Link href="/templates" style={{ textDecoration: "none", color: "inherit" }}>
-                <Typography variant="body2" sx={{ "&:hover": { color: colors.gold.light } }}>Thiệp sinh nhật</Typography>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    "&:hover": { color: colors.gold.light },
+                    transition: "color 0.2s ease",
+                  }}
+                >
+                  Thiệp sinh nhật
+                </Typography>
               </Link>
               <Link href="/templates" style={{ textDecoration: "none", color: "inherit" }}>
-                <Typography variant="body2" sx={{ "&:hover": { color: colors.gold.light } }}>Thiệp sự kiện & Party</Typography>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    "&:hover": { color: colors.gold.light },
+                    transition: "color 0.2s ease",
+                  }}
+                >
+                  Thiệp sự kiện & Party
+                </Typography>
               </Link>
               <Link href="/i/minh-linh" style={{ textDecoration: "none", color: "inherit" }}>
-                <Typography variant="body2" sx={{ "&:hover": { color: colors.gold.light } }}>Xem demo thực tế</Typography>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    "&:hover": { color: colors.gold.light },
+                    transition: "color 0.2s ease",
+                  }}
+                >
+                  Xem demo thực tế
+                </Typography>
               </Link>
             </StackCol>
           </Grid>
@@ -133,16 +165,48 @@ export function Footer() {
             </Typography>
             <StackCol spacing={1.5}>
               <Link href="/pricing" style={{ textDecoration: "none", color: "inherit" }}>
-                <Typography variant="body2" sx={{ "&:hover": { color: colors.gold.light } }}>Bảng giá dịch vụ</Typography>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    "&:hover": { color: colors.gold.light },
+                    transition: "color 0.2s ease",
+                  }}
+                >
+                  Bảng giá dịch vụ
+                </Typography>
               </Link>
               <Link href="/about" style={{ textDecoration: "none", color: "inherit" }}>
-                <Typography variant="body2" sx={{ "&:hover": { color: colors.gold.light } }}>Về chúng tôi</Typography>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    "&:hover": { color: colors.gold.light },
+                    transition: "color 0.2s ease",
+                  }}
+                >
+                  Về chúng tôi
+                </Typography>
               </Link>
               <Link href="/terms" style={{ textDecoration: "none", color: "inherit" }}>
-                <Typography variant="body2" sx={{ "&:hover": { color: colors.gold.light } }}>Điều khoản sử dụng</Typography>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    "&:hover": { color: colors.gold.light },
+                    transition: "color 0.2s ease",
+                  }}
+                >
+                  Điều khoản sử dụng
+                </Typography>
               </Link>
               <Link href="/privacy" style={{ textDecoration: "none", color: "inherit" }}>
-                <Typography variant="body2" sx={{ "&:hover": { color: colors.gold.light } }}>Chính sách bảo mật</Typography>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    "&:hover": { color: colors.gold.light },
+                    transition: "color 0.2s ease",
+                  }}
+                >
+                  Chính sách bảo mật
+                </Typography>
               </Link>
             </StackCol>
           </Grid>

@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
@@ -23,7 +24,6 @@ import {
   StackCol,
 } from "@/components/ui";
 import { colors } from "@/theme/colors";
-import { shadows } from "@/theme/shadows";
 import { borderRadius, paddings } from "@/theme/spacing";
 import { fontWeights, fontSizes } from "@/theme/typography";
 import { siteConfig } from "@/config/site.config";
@@ -58,7 +58,11 @@ export function Header() {
       <Container maxWidth="lg">
         <Toolbar disableGutters sx={{ height: 76, justifyContent: "space-between" }}>
           {/* Logo thương hiệu */}
-          <Link href="/" style={{ textDecoration: "none" }}>
+          <Box
+            component={Link}
+            href="/"
+            sx={{ textDecoration: "none", color: "inherit", display: "inline-flex" }}
+          >
             <StackRowAlignJustCenter spacing={1.5}>
               {/* Logo image với mixBlendMode multiply để hoà nền */}
               <StackCenter sx={{ width: 52, height: 52, flexShrink: 0 }}>
@@ -105,7 +109,7 @@ export function Header() {
                 </Typography>
               </StackCol>
             </StackRowAlignJustCenter>
-          </Link>
+          </Box>
 
           {/* Desktop Navigation Links */}
           <StackRowAlignJustCenter
@@ -113,29 +117,21 @@ export function Header() {
             sx={{ display: { xs: "none", md: "flex" } }}
           >
             {NAV_LINKS.map((link) => (
-              <Link
+              <Box
                 key={link.href}
+                component={Link}
                 href={link.href}
-                style={{
+                sx={{
                   textDecoration: "none",
                   color: colors.text.secondary,
                   fontSize: fontSizes.sm,
                   fontWeight: fontWeights.semibold,
                   transition: "color 0.2s ease",
+                  "&:hover": { color: colors.gold.main },
                 }}
               >
-                <Typography
-                  component="span"
-                  sx={{
-                    "&:hover": { color: colors.gold.main },
-                    fontSize: fontSizes.sm,
-                    fontWeight: fontWeights.semibold,
-                    transition: "color 0.2s ease",
-                  }}
-                >
-                  {link.label}
-                </Typography>
-              </Link>
+                {link.label}
+              </Box>
             ))}
           </StackRowAlignJustCenter>
 
@@ -144,17 +140,23 @@ export function Header() {
             spacing={1.5}
             sx={{ display: { xs: "none", md: "flex" } }}
           >
-            <Link href="/login" style={{ textDecoration: "none" }}>
-              <Button variant="ghost" size="medium">
-                Đăng nhập
-              </Button>
-            </Link>
+            <Button
+              component={Link}
+              href="/login"
+              variant="ghost"
+              size="medium"
+            >
+              Đăng nhập
+            </Button>
 
-            <Link href="/templates" style={{ textDecoration: "none" }}>
-              <Button variant="gradient" size="medium">
-                Tạo thiệp ngay
-              </Button>
-            </Link>
+            <Button
+              component={Link}
+              href="/templates"
+              variant="gradient"
+              size="medium"
+            >
+              Tạo thiệp ngay
+            </Button>
           </StackRowAlignJustCenter>
 
           {/* Mobile Hamburger Menu Button */}
@@ -230,16 +232,24 @@ export function Header() {
         </List>
 
         <StackCol spacing={1.5} sx={{ mt: 4 }}>
-          <Link href="/login" style={{ textDecoration: "none" }} onClick={handleDrawerToggle}>
-            <Button variant="outline" fullWidth>
-              Đăng nhập
-            </Button>
-          </Link>
-          <Link href="/templates" style={{ textDecoration: "none" }} onClick={handleDrawerToggle}>
-            <Button variant="gradient" fullWidth>
-              Tạo thiệp miễn phí
-            </Button>
-          </Link>
+          <Button
+            component={Link}
+            href="/login"
+            variant="outline"
+            fullWidth
+            onClick={handleDrawerToggle}
+          >
+            Đăng nhập
+          </Button>
+          <Button
+            component={Link}
+            href="/templates"
+            variant="gradient"
+            fullWidth
+            onClick={handleDrawerToggle}
+          >
+            Tạo thiệp miễn phí
+          </Button>
         </StackCol>
       </Drawer>
     </AppBar>

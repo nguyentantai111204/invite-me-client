@@ -136,7 +136,6 @@ const STATS = [
 export default function MarketingHomePage() {
   return (
     <Box sx={{ overflow: "hidden" }}>
-      {/* ─── 1. Hero ──────────────────────────────────────── */}
       <Box
         sx={{
           position: "relative",
@@ -305,7 +304,11 @@ export default function MarketingHomePage() {
                       </StackCol>
                     </StackRowAlignJustCenter>
                     <Link href="/i/minh-linh" style={{ textDecoration: "none" }}>
-                      <Button variant="gradient" size="small" rightIcon={<ArrowForwardIcon sx={{ fontSize: 14 }} />}>
+                      <Button
+                        variant="gradient"
+                        size="small"
+                        rightIcon={<ArrowForwardIcon sx={{ fontSize: 14 }} />}
+                      >
                         Mở thiệp
                       </Button>
                     </Link>
@@ -448,7 +451,11 @@ export default function MarketingHomePage() {
               </Typography>
             </StackCol>
             <Link href="/templates" style={{ textDecoration: "none" }}>
-              <Button variant="ghost" rightIcon={<ArrowForwardIcon />} sx={{ mt: { xs: 2, md: 0 }, fontWeight: fontWeights.semibold }}>
+              <Button
+                variant="ghost"
+                rightIcon={<ArrowForwardIcon />}
+                sx={{ mt: { xs: 2, md: 0 }, fontWeight: fontWeights.semibold }}
+              >
                 Xem toàn bộ mẫu thiệp
               </Button>
             </Link>
@@ -577,10 +584,14 @@ export default function MarketingHomePage() {
                     {/* Actions */}
                     <StackRowAlignJustCenter spacing={1.5}>
                       <Link href={`/i/${tpl.previewSlug}`} style={{ textDecoration: "none" }}>
-                        <Button variant="outline" size="small">Xem thử</Button>
+                        <Button variant="outline" size="small">
+                          Xem thử
+                        </Button>
                       </Link>
                       <Link href={`/templates/${tpl.id}`} style={{ textDecoration: "none" }}>
-                        <Button variant="gradient" size="small">Dùng mẫu này</Button>
+                        <Button variant="gradient" size="small">
+                          Dùng mẫu này
+                        </Button>
                       </Link>
                     </StackRowAlignJustCenter>
                   </StackColAlignJustBetween>
@@ -657,7 +668,7 @@ export default function MarketingHomePage() {
 
                   {/* Connector arrow (chỉ md+, không phải bước cuối) */}
                   {idx < STEPS.length - 1 && (
-                    <Box
+                    <StackRowAlignJustCenter
                       sx={{
                         display: { xs: "none", md: "flex" },
                         position: "absolute",
@@ -670,12 +681,10 @@ export default function MarketingHomePage() {
                         border: `1px solid ${colors.border.goldLight}`,
                         width: 32,
                         height: 32,
-                        alignItems: "center",
-                        justifyContent: "center",
                       }}
                     >
                       <ArrowForwardIcon sx={{ fontSize: 16, color: colors.gold.main }} />
-                    </Box>
+                    </StackRowAlignJustCenter>
                   )}
                 </Card>
               </Grid>
