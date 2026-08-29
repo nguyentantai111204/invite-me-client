@@ -6,12 +6,14 @@
  * Dùng chung cho RootLayout, Robots, Sitemap, OpenGraph và Schema.org.
  */
 
+import { envConfig } from "./env.config";
+
 export const siteConfig = {
   name: "InviteMe",
   title: "InviteMe - Thiết kế thiệp mời online",
   description:
     "Tạo thiệp cưới, sinh nhật, thôi nôi và sự kiện trực tuyến đẹp mắt, chuyên nghiệp và nhanh chóng. Quản lý danh sách khách mời và xác nhận tham dự (RSVP) tiện lợi.",
-  url: process.env.NEXT_PUBLIC_APP_URL || "https://inviteme.vn",
+  url: envConfig.appUrl,
   ogImage: "/images/og-image.png",
   keywords: [
     "InviteMe",

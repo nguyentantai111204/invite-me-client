@@ -1,10 +1,10 @@
+import { envConfig } from "@/config/env.config";
 import type {
   InvitationData,
   RsvpSubmissionPayload,
 } from "../types/invitation.type";
 
-const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL || "https://api.inviteme.vn/api/v1";
+const API_BASE_URL = envConfig.apiUrl;
 
 /**
  * Dữ liệu mẫu phục vụ phát triển & hiển thị khi chưa nối API Backend.
