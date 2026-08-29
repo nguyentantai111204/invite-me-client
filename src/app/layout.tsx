@@ -19,11 +19,7 @@ export const metadata: Metadata = {
     "Thiết kế thiệp mời online cho đám cưới, sinh nhật và các sự kiện đặc biệt.",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({children,}: Readonly<{children: React.ReactNode;}>) {
   return (
     <html lang="vi" className={inter.variable}>
       <body className={inter.className}>
