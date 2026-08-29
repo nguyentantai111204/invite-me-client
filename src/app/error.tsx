@@ -5,8 +5,13 @@ import Image from "next/image";
 import Link from "next/link";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
+import RefreshIcon from "@mui/icons-material/Refresh";
+import HomeIcon from "@mui/icons-material/Home";
+import { fontPlayfair } from "@/config/fonts.config";
 import {
   Button,
+  Badge,
+  StackCenter,
   StackColAlignJustCenter,
   StackRowAlignJustCenter,
 } from "@/components/ui";
@@ -23,49 +28,73 @@ export default function ErrorPage({ error, reset }: ErrorProps) {
   }, [error]);
 
   return (
-    <Container maxWidth="md">
-      <StackColAlignJustCenter
-        component="main"
-        sx={{
-          minHeight: "100vh",
-          textAlign: "center",
-          py: 8,
-        }}
-      >
-        <StackColAlignJustCenter spacing={3} sx={{ maxWidth: 580 }}>
-          {/* Hình minh họa 500 Server Error Hoàng gia */}
-          <Image
-            src="/images/error.png"
-            alt="500 Server Error"
-            width={340}
-            height={340}
-            priority
-            style={{
-              maxWidth: "100%",
-              height: "auto",
-              objectFit: "contain",
-              filter: "drop-shadow(0 12px 24px rgba(220, 38, 38, 0.12))",
-            }}
-          />
+    <StackCenter
+      component="main"
+      className={fontPlayfair.variable}
+      sx={{
+        minHeight: "100vh",
+        backgroundColor: "background.default",
+        backgroundImage:
+          "radial-gradient(ellipse at 50% 30%, rgba(220, 38, 38, 0.08), transparent 60%), radial-gradient(ellipse at 80% 80%, rgba(183, 134, 40, 0.08), transparent 50%)",
+        py: { xs: 6, md: 10 },
+        px: 2,
+      }}
+    >
+      <Container maxWidth="sm">
+        <StackColAlignJustCenter spacing={3} sx={{ textAlign: "center" }}>
+          <Badge color="gold" size="medium">
+            500 • LỖI MÁY CHỦ
+          </Badge>
 
-          {/* Tiêu đề & Thông báo */}
+          <StackCenter
+            sx={{
+              position: "relative",
+              width: { xs: 260, sm: 320 },
+              height: { xs: 260, sm: 320 },
+              mx: "auto",
+            }}
+          >
+            <Image
+              src="/images/error.png"
+              alt="500 Server Error"
+              width={320}
+              height={320}
+              priority
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "contain",
+                mixBlendMode: "multiply",
+              }}
+            />
+          </StackCenter>
+
+          {/* Tiêu đề Serif sang trọng */}
           <Typography
-            variant="h3"
+            variant="h2"
             component="h1"
             sx={{
-              fontWeight: 800,
               fontFamily: "var(--font-playfair), serif",
+              fontWeight: 800,
+              fontSize: { xs: "2rem", sm: "2.75rem" },
               color: "text.primary",
-              fontSize: { xs: "1.75rem", sm: "2.25rem" },
+              letterSpacing: "-0.01em",
+              mt: -1,
             }}
           >
             Đã Xảy Ra Lỗi Hệ Thống
           </Typography>
 
+          {/* Mô tả thông báo */}
           <Typography
             variant="body1"
             color="text.secondary"
-            sx={{ fontSize: "1.05rem", lineHeight: 1.7 }}
+            sx={{
+              fontSize: { xs: "1rem", sm: "1.1rem" },
+              lineHeight: 1.7,
+              maxWidth: 480,
+              mx: "auto",
+            }}
           >
             Hệ thống đang gặp gián đoạn tạm thời khi xử lý yêu cầu. Đội ngũ kỹ thuật đã
             ghi nhận để khắc phục sớm nhất. Xin vui lòng thử lại.
@@ -74,13 +103,23 @@ export default function ErrorPage({ error, reset }: ErrorProps) {
           {/* Nút hành động thử lại và về trang chủ */}
           <StackRowAlignJustCenter
             spacing={2}
-            sx={{ pt: 1.5, width: { xs: "100%", sm: "auto" }, flexWrap: "wrap" }}
+            sx={{
+              pt: 2,
+              width: { xs: "100%", sm: "auto" },
+              flexWrap: "wrap",
+            }}
           >
             <Button
               variant="gradient"
               size="large"
+              leftIcon={<RefreshIcon />}
               onClick={() => reset()}
-              sx={{ px: 3.5, py: 1.25, width: { xs: "100%", sm: "auto" } }}
+              sx={{
+                px: 4,
+                py: 1.4,
+                fontSize: "1rem",
+                width: { xs: "100%", sm: "auto" },
+              }}
             >
               Thử lại ngay
             </Button>
@@ -89,14 +128,20 @@ export default function ErrorPage({ error, reset }: ErrorProps) {
               <Button
                 variant="outline"
                 size="large"
-                sx={{ px: 3.5, py: 1.25, width: { xs: "100%", sm: "auto" } }}
+                leftIcon={<HomeIcon />}
+                sx={{
+                  px: 4,
+                  py: 1.4,
+                  fontSize: "1rem",
+                  width: { xs: "100%", sm: "auto" },
+                }}
               >
                 Về trang chủ
               </Button>
             </Link>
           </StackRowAlignJustCenter>
         </StackColAlignJustCenter>
-      </StackColAlignJustCenter>
-    </Container>
+      </Container>
+    </StackCenter>
   );
 }

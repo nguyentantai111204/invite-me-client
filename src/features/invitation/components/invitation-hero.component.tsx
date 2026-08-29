@@ -1,7 +1,8 @@
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import { StackColAlignJustCenter } from "@/components/ui";
+import { StackCenter, StackColAlignJustCenter } from "@/components/ui";
+import { fontWeights, letterSpacings } from "@/theme/typography";
 import type { InvitationData } from "../types/invitation.type";
 
 interface InvitationHeroProps {
@@ -21,13 +22,10 @@ export function InvitationHero({ invitation }: InvitationHeroProps) {
   const brideName = couple?.bride.shortName || "Cô Dâu";
 
   return (
-    <Box
+    <StackCenter
       sx={{
         position: "relative",
         minHeight: { xs: "85vh", md: "90vh" },
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
         textAlign: "center",
         backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.55)), url('${invitation.coverImage}')`,
         backgroundSize: "cover",
@@ -43,9 +41,9 @@ export function InvitationHero({ invitation }: InvitationHeroProps) {
           <Typography
             variant="overline"
             sx={{
-              letterSpacing: 4,
+              letterSpacing: letterSpacings.mega,
               fontSize: { xs: "0.85rem", md: "1rem" },
-              fontWeight: 600,
+              fontWeight: fontWeights.semibold,
               color: themeConfig.secondaryColor || "#E8C872",
               textTransform: "uppercase",
             }}
@@ -83,9 +81,9 @@ export function InvitationHero({ invitation }: InvitationHeroProps) {
             variant="h4"
             sx={{
               fontFamily: "var(--font-playfair), serif",
-              fontWeight: 600,
+              fontWeight: fontWeights.semibold,
               fontSize: { xs: "1.35rem", md: "1.85rem" },
-              letterSpacing: 1,
+              letterSpacing: letterSpacings.normal,
               textTransform: "capitalize",
             }}
           >
@@ -104,6 +102,6 @@ export function InvitationHero({ invitation }: InvitationHeroProps) {
           </Typography>
         </StackColAlignJustCenter>
       </Container>
-    </Box>
+    </StackCenter>
   );
 }

@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
@@ -15,18 +15,23 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
-import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import {
   Button,
+  StackCenter,
   StackRowAlignJustCenter,
   StackRowAlignJustBetween,
   StackCol,
 } from "@/components/ui";
+import { colors } from "@/theme/colors";
+import { shadows } from "@/theme/shadows";
+import { borderRadius, paddings } from "@/theme/spacing";
+import { fontWeights, fontSizes } from "@/theme/typography";
+import { siteConfig } from "@/config/site.config";
 
 const NAV_LINKS = [
   { label: "Mẫu thiệp", href: "/templates" },
   { label: "Bảng giá", href: "/pricing" },
-  { label: "Về InviteMe", href: "/about" },
+  { label: "Về Duyên", href: "/about" },
   { label: "Thiệp mẫu thực tế", href: "/i/minh-linh" },
 ];
 
@@ -42,45 +47,64 @@ export function Header() {
       position="sticky"
       elevation={0}
       sx={{
-        backgroundColor: "rgba(255, 255, 255, 0.9)",
-        backdropFilter: "blur(16px)",
-        borderBottom: "1px solid rgba(0, 0, 0, 0.06)",
+        backgroundColor: "rgba(250, 248, 245, 0.92)",
+        backdropFilter: "blur(20px)",
+        borderBottom: `1px solid ${colors.border.goldLight}`,
         color: "text.primary",
         top: 0,
         zIndex: 1100,
       }}
     >
       <Container maxWidth="lg">
-        <Toolbar disableGutters sx={{ height: 72, justifyContent: "space-between" }}>
+        <Toolbar disableGutters sx={{ height: 76, justifyContent: "space-between" }}>
           {/* Logo thương hiệu */}
-          <Link href="/" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: 8 }}>
-            <Box
-              sx={{
-                width: 38,
-                height: 38,
-                borderRadius: 2.5,
-                background: "linear-gradient(135deg, #B78628 0%, #E58B7B 100%)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: "#FFFFFF",
-                boxShadow: "0 4px 12px rgba(183, 134, 40, 0.35)",
-              }}
-            >
-              <AutoAwesomeIcon fontSize="small" />
-            </Box>
-            <Typography
-              variant="h5"
-              sx={{
-                fontWeight: 900,
-                letterSpacing: -0.5,
-                background: "linear-gradient(135deg, #B78628 0%, #E58B7B 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-              }}
-            >
-              InviteMe
-            </Typography>
+          <Link href="/" style={{ textDecoration: "none" }}>
+            <StackRowAlignJustCenter spacing={1.5}>
+              {/* Logo image với mixBlendMode multiply để hoà nền */}
+              <StackCenter sx={{ width: 52, height: 52, flexShrink: 0 }}>
+                <Image
+                  src="/images/logo.png"
+                  alt={siteConfig.name}
+                  width={52}
+                  height={52}
+                  priority
+                  style={{
+                    width: 52,
+                    height: 52,
+                    objectFit: "contain",
+                    mixBlendMode: "multiply",
+                  }}
+                />
+              </StackCenter>
+              <StackCol spacing={0}>
+                <Typography
+                  sx={{
+                    fontFamily: "var(--font-playfair), serif",
+                    fontWeight: fontWeights.black,
+                    fontSize: fontSizes["2xl"],
+                    background: colors.brand.luxuryGradient,
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    lineHeight: 1.1,
+                    letterSpacing: "-0.5px",
+                  }}
+                >
+                  {siteConfig.name}
+                </Typography>
+                <Typography
+                  sx={{
+                    fontSize: "0.65rem",
+                    fontWeight: fontWeights.semibold,
+                    color: colors.text.secondary,
+                    letterSpacing: "0.08em",
+                    lineHeight: 1,
+                    textTransform: "uppercase",
+                  }}
+                >
+                  Thiệp cưới online
+                </Typography>
+              </StackCol>
+            </StackRowAlignJustCenter>
           </Link>
 
           {/* Desktop Navigation Links */}
@@ -94,18 +118,19 @@ export function Header() {
                 href={link.href}
                 style={{
                   textDecoration: "none",
-                  color: "#4B5563",
-                  fontWeight: 600,
-                  fontSize: "0.95rem",
+                  color: colors.text.secondary,
+                  fontSize: fontSizes.sm,
+                  fontWeight: fontWeights.semibold,
                   transition: "color 0.2s ease",
                 }}
               >
                 <Typography
                   component="span"
                   sx={{
-                    "&:hover": { color: "primary.main" },
-                    fontSize: "0.95rem",
-                    fontWeight: 600,
+                    "&:hover": { color: colors.gold.main },
+                    fontSize: fontSizes.sm,
+                    fontWeight: fontWeights.semibold,
+                    transition: "color 0.2s ease",
                   }}
                 >
                   {link.label}
@@ -152,22 +177,32 @@ export function Header() {
         onClose={handleDrawerToggle}
         slotProps={{
           paper: {
-            sx: { width: "80%", maxWidth: 320, p: 3 },
+            sx: { width: "80%", maxWidth: 320, p: `${paddings.lg}px` },
           },
         }}
       >
         <StackRowAlignJustBetween sx={{ mb: 3 }}>
-          <Typography
-            variant="h6"
-            sx={{
-              fontWeight: 800,
-              background: "linear-gradient(135deg, #B78628 0%, #E58B7B 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-            }}
-          >
-            InviteMe
-          </Typography>
+          <StackRowAlignJustCenter spacing={1.5}>
+            <Image
+              src="/images/logo.png"
+              alt={siteConfig.name}
+              width={32}
+              height={32}
+              style={{ objectFit: "contain", mixBlendMode: "multiply" }}
+            />
+            <Typography
+              sx={{
+                fontFamily: "var(--font-playfair), serif",
+                fontWeight: fontWeights.black,
+                fontSize: fontSizes.xl,
+                background: colors.brand.luxuryGradient,
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+            >
+              {siteConfig.name}
+            </Typography>
+          </StackRowAlignJustCenter>
           <IconButton onClick={handleDrawerToggle}>
             <CloseIcon />
           </IconButton>
@@ -180,11 +215,11 @@ export function Header() {
                 component={Link}
                 href={link.href}
                 onClick={handleDrawerToggle}
-                sx={{ borderRadius: 2 }}
+                sx={{ borderRadius: `${borderRadius.sm}px` }}
               >
                 <ListItemText
                   primary={
-                    <Typography sx={{ fontWeight: 600, color: "text.primary" }}>
+                    <Typography sx={{ fontWeight: fontWeights.semibold, color: "text.primary" }}>
                       {link.label}
                     </Typography>
                   }

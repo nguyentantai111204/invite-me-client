@@ -5,7 +5,10 @@ import {
   Card,
   StackCol,
   StackColAlignJustCenter,
+  stackRowAlignJustStartStyle,
 } from "@/components/ui";
+import { borderRadius } from "@/theme/spacing";
+import { fontWeights } from "@/theme/typography";
 import type { EventScheduleItem, InvitationThemeConfig } from "../types/invitation.type";
 
 interface InvitationScheduleProps {
@@ -26,7 +29,7 @@ export function InvitationSchedule({ schedule, themeConfig }: InvitationSchedule
             sx={{
               letterSpacing: 3,
               color: primaryColor,
-              fontWeight: 700,
+              fontWeight: fontWeights.bold,
               fontSize: "0.85rem",
             }}
           >
@@ -37,7 +40,7 @@ export function InvitationSchedule({ schedule, themeConfig }: InvitationSchedule
             sx={{
               fontFamily: "var(--font-playfair), serif",
               fontSize: { xs: "2rem", md: "2.75rem" },
-              fontWeight: 700,
+              fontWeight: fontWeights.bold,
             }}
           >
             Chương Trình Tiệc Cưới
@@ -52,10 +55,10 @@ export function InvitationSchedule({ schedule, themeConfig }: InvitationSchedule
               key={item.id || index}
               hoverEffect
               sx={{
+                ...stackRowAlignJustStartStyle,
                 p: { xs: 2.5, sm: 3.5 },
-                borderRadius: 3,
+                borderRadius: `${borderRadius.lg}px`,
                 border: "1px solid rgba(183, 134, 40, 0.15)",
-                display: "flex",
                 flexDirection: { xs: "column", sm: "row" },
                 alignItems: { xs: "flex-start", sm: "center" },
                 gap: { xs: 1.5, sm: 4 },
@@ -67,11 +70,11 @@ export function InvitationSchedule({ schedule, themeConfig }: InvitationSchedule
                   minWidth: 100,
                   py: 1,
                   px: 2,
-                  borderRadius: 2,
+                  borderRadius: `${borderRadius.sm}px`,
                   backgroundColor: primaryColor,
                   color: "#FFFFFF",
                   textAlign: "center",
-                  fontWeight: 700,
+                  fontWeight: fontWeights.bold,
                   fontSize: "1.1rem",
                   fontFamily: "var(--font-playfair), serif",
                 }}
@@ -85,7 +88,7 @@ export function InvitationSchedule({ schedule, themeConfig }: InvitationSchedule
                   variant="h5"
                   sx={{
                     fontFamily: "var(--font-playfair), serif",
-                    fontWeight: 700,
+                    fontWeight: fontWeights.bold,
                     fontSize: "1.25rem",
                     mb: 0.5,
                   }}

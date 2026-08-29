@@ -8,7 +8,14 @@ import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
+import {
+  StackRowAlignJustBetween,
+  StackCol,
+} from "@/components/ui/stack.component";
+import { colors } from "@/theme/colors";
+import { shadows } from "@/theme/shadows";
+import { borderRadius, paddings } from "@/theme/spacing";
+import { fontWeights } from "@/theme/typography";
 
 export interface ModalProps extends Omit<DialogProps, "title"> {
   title?: React.ReactNode;
@@ -17,6 +24,7 @@ export interface ModalProps extends Omit<DialogProps, "title"> {
   onClose?: () => void;
 }
 
+// Hộp thoại Modal / Dialog tùy biến với phong cách hiện đại
 export function Modal({
   open,
   onClose,
@@ -37,59 +45,58 @@ export function Modal({
       slotProps={{
         paper: {
           sx: {
-            borderRadius: 3.5,
-            p: { xs: 1, sm: 2 },
-            boxShadow: "0 20px 48px rgba(0, 0, 0, 0.15)",
+            borderRadius: `${borderRadius.xl}px`,
+            p: { xs: `${paddings.xs}px`, sm: `${paddings.md}px` },
+            boxShadow: shadows.modal,
           },
         },
       }}
       {...props}
     >
-      {/* Modal Header */}
+      {/* Tiêu đề Modal */}
       {(title || onClose) && (
-        <DialogTitle
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            pb: 1,
-          }}
-        >
-          <Box>
-            {typeof title === "string" ? (
-              <Typography variant="h5" sx={{ fontWeight: 700 }}>
-                {title}
-              </Typography>
-            ) : (
-              title
-            )}
-            {description && (
-              <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
-                {description}
-              </Typography>
-            )}
-          </Box>
+        <DialogTitle sx={{ pb: 1 }}>
+          <StackRowAlignJustBetween>
+            <StackCol spacing={0.5}>
+              {typeof title === "string" ? (
+                <Typography variant="h5" sx={{ fontWeight: fontWeights.bold }}>
+                  {title}
+                </Typography>
+              ) : (
+                title
+              )}
+              {description && (
+                <Typography variant="body2" color="text.secondary">
+                  {description}
+                </Typography>
+              )}
+            </StackCol>
 
-          {onClose && (
-            <IconButton
-              aria-label="close"
-              onClick={onClose}
-              sx={{
-                color: "text.secondary",
-                "&:hover": { backgroundColor: "rgba(0, 0, 0, 0.05)" },
-              }}
-            >
-              <CloseIcon />
-            </IconButton>
-          )}
+            {onClose && (
+              <IconButton
+                aria-label="close"
+                onClick={onClose}
+                sx={{
+                  color: colors.text.secondary,
+                  "&:hover": { backgroundColor: colors.border.subtle },
+                }}
+              >
+                <CloseIcon />
+              </IconButton>
+            )}
+          </StackRowAlignJustBetween>
         </DialogTitle>
       )}
 
-      {/* Modal Body Content */}
-      <DialogContent sx={{ py: 2 }}>{children}</DialogContent>
+      {/* Thân nội dung Modal */}
+      <DialogContent sx={{ py: `${paddings.md}px` }}>{children}</DialogContent>
 
-      {/* Modal Footer Actions */}
-      {actions && <DialogActions sx={{ px: 3, pb: 2 }}>{actions}</DialogActions>}
+      {/* Nhóm nút hành động chân Modal */}
+      {actions && (
+        <DialogActions sx={{ px: `${paddings.lg}px`, pb: `${paddings.md}px` }}>
+          {actions}
+        </DialogActions>
+      )}
     </Dialog>
   );
 }

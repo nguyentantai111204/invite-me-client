@@ -38,6 +38,20 @@ export const paddings = {
   "5xl": 96,
 } as const;
 
+// Margin định sẵn (px)
+export const margins = {
+  none: 0,
+  xs: 4,
+  sm: 8,
+  md: 16,
+  lg: 24,
+  xl: 32,
+  "2xl": 48,
+  "3xl": 64,
+  "4xl": 80,
+  "5xl": 96,
+} as const;
+
 // Khoảng cách Gap định sẵn (px)
 export const gaps = {
   none: 0,
@@ -65,5 +79,6 @@ export const borderRadius = {
 
 export type SpacingTokenKey = keyof typeof spacingTokens;
 export type PaddingKey = keyof typeof paddings;
+export type MarginKey = keyof typeof margins;
 export type GapKey = keyof typeof gaps;
 export type BorderRadiusKey = keyof typeof borderRadius;

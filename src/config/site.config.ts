@@ -2,14 +2,15 @@
 import { envConfig } from "./env.config";
 
 export const siteConfig = {
-  name: "InviteMe",
-  title: "InviteMe - Thiết kế thiệp mời online",
+  name: "TTNY",
+  tagline: "Nền tảng thiệp mời online hoàng gia",
+  title: "TTNY — Thiết kế thiệp mời online sang trọng",
   description:
-    "Tạo thiệp cưới, sinh nhật, thôi nôi và sự kiện trực tuyến đẹp mắt, chuyên nghiệp và nhanh chóng. Quản lý danh sách khách mời và xác nhận tham dự (RSVP) tiện lợi.",
+    "Tạo thiệp cưới, sinh nhật và sự kiện trực tuyến đẹp mắt, sang trọng. Chia sẻ qua Zalo, Messenger chỉ trong vài phút. Quản lý RSVP và danh sách khách mời tiện lợi.",
   url: envConfig.appUrl,
   ogImage: "/images/og-image.png",
   keywords: [
-    "InviteMe",
+    "TTNY",
     "thiết kế thiệp mời online",
     "thiệp cưới online",
     "thiệp mời điện tử",
@@ -19,19 +20,21 @@ export const siteConfig = {
     "rsvp online",
     "e-invitation",
     "thiết kế thiệp cưới",
+    "duyên phận",
+    "lương duyên",
   ],
   authors: [
     {
-      name: "InviteMe Team",
-      url: "https://inviteme.vn",
+      name: "TTNYTTNY",
+      url: "https://TTNY.vn",
     },
   ],
-  creator: "InviteMe",
+  creator: "TTNY",
   locale: "vi_VN",
-  themeColor: "#8B5CF6",
+  themeColor: "#B78628",
   links: {
-    facebook: "https://facebook.com/invitemevn",
-    tiktok: "https://tiktok.com/@invitemevn",
-    supportEmail: "hotro@inviteme.vn",
+    facebook: "https://facebook.com/TTNY",
+    tiktok: "https://tiktok.com/@TTNY",
+    supportEmail: "hotro@gmail.com",
   },
 } as const;

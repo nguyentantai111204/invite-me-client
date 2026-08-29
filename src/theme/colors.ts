@@ -18,6 +18,8 @@ export const colors = {
     dark: "#875C12",
     contrastText: "#FFFFFF",
     gradient: "linear-gradient(135deg, #F3E5AB 0%, #D4AF37 50%, #AA771C 100%)",
+    buttonGradient: "linear-gradient(135deg, #D4AF37 0%, #B78628 50%, #966A1E 100%)",
+    buttonHoverGradient: "linear-gradient(135deg, #E8C872 0%, #C5A059 50%, #A1721C 100%)",
   },
 
   // 2. Màu hồng phấn (Hoa hồng dâu rể)
@@ -50,6 +52,8 @@ export const colors = {
     gradient: "linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%)",
     goldGradient: "linear-gradient(135deg, #F3E5AB 0%, #D4AF37 50%, #B78628 100%)",
     luxuryGradient: "linear-gradient(135deg, #B78628 0%, #E58B7B 100%)",
+    goldButtonGradient: "linear-gradient(135deg, #D4AF37 0%, #B78628 50%, #966A1E 100%)",
+    goldButtonHoverGradient: "linear-gradient(135deg, #E8C872 0%, #C5A059 50%, #A1721C 100%)",
   },
 
   // 4. Định nghĩa Primary & Secondary cho MUI Theme
@@ -75,7 +79,14 @@ export const colors = {
     cream: "#FDFBF7",
     subtle: "#F5F2EB",
     dark: "#1A1612", // Nền tối hoàng gia
+    darkLuxury: "#1A1612",
+    darkFooter: "#1F1F1F",
     darkPaper: "#241E18",
+    radialGoldHero: "radial-gradient(ellipse at 50% 10%, rgba(183, 134, 40, 0.12), transparent 70%), #FAF8F5",
+    radialGold404: "radial-gradient(ellipse at 50% 30%, rgba(183, 134, 40, 0.12), transparent 60%), radial-gradient(ellipse at 80% 80%, rgba(229, 139, 123, 0.08), transparent 50%)",
+    radialError500: "radial-gradient(ellipse at 50% 30%, rgba(220, 38, 38, 0.08), transparent 60%), radial-gradient(ellipse at 80% 80%, rgba(183, 134, 40, 0.08), transparent 50%)",
+    overlayHeroDark: "linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.55))",
+    overlayCardDark: "linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5))",
   },
 
   // 6. Màu văn bản (Độ tương phản cao)
@@ -85,6 +96,9 @@ export const colors = {
     disabled: "#A89C8A",
     gold: "#B78628",
     inverse: "#FFFFFF",
+    white: "#FFFFFF",
+    mutedWhite: "rgba(255, 255, 255, 0.7)",
+    faintWhite: "rgba(255, 255, 255, 0.4)",
   },
 
   // 7. Màu trạng thái hệ thống (500 Error, 404 Not Found, Empty)
@@ -124,6 +138,8 @@ export const colors = {
   border: {
     gold: "rgba(183, 134, 40, 0.25)",
     goldLight: "rgba(183, 134, 40, 0.12)",
+    goldDashed: "rgba(183, 134, 40, 0.3)",
     subtle: "rgba(0, 0, 0, 0.08)",
+    whiteSubtle: "rgba(255, 255, 255, 0.15)",
   },
 } as const;

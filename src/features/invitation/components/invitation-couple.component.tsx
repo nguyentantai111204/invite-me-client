@@ -1,5 +1,4 @@
 import Avatar from "@mui/material/Avatar";
-import Box from "@mui/material/Box";
 import CardContent from "@mui/material/CardContent";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
@@ -7,7 +6,12 @@ import Typography from "@mui/material/Typography";
 import {
   Card,
   StackColAlignJustCenter,
+  StackRowAlignJustCenter,
 } from "@/components/ui";
+import { colors } from "@/theme/colors";
+import { shadows } from "@/theme/shadows";
+import { borderRadius, paddings } from "@/theme/spacing";
+import { fontWeights, fontSizes, lineHeights, letterSpacings } from "@/theme/typography";
 import type { WeddingCouple, InvitationThemeConfig } from "../types/invitation.type";
 
 interface InvitationCoupleProps {
@@ -17,19 +21,19 @@ interface InvitationCoupleProps {
 
 export function InvitationCouple({ couple, themeConfig }: InvitationCoupleProps) {
   const { groom, bride, loveStory, loveStoryTitle } = couple;
-  const primaryColor = themeConfig.primaryColor || "#B78628";
+  const primaryColor = themeConfig.primaryColor || colors.gold.main;
 
   return (
-    <Container maxWidth="lg" sx={{ py: 8 }}>
+    <Container maxWidth="lg" sx={{ py: `${paddings["3xl"]}px` }}>
       {/* Tiêu đề mục cô dâu chú rể */}
       <StackColAlignJustCenter spacing={1.5} sx={{ textAlign: "center", mb: 6 }}>
         <Typography
           variant="overline"
           sx={{
-            letterSpacing: 3,
+            letterSpacing: letterSpacings.mega,
             color: primaryColor,
-            fontWeight: 700,
-            fontSize: "0.85rem",
+            fontWeight: fontWeights.bold,
+            fontSize: fontSizes.sm,
           }}
         >
           CÔ DÂU & CHÚ RỂ
@@ -38,13 +42,16 @@ export function InvitationCouple({ couple, themeConfig }: InvitationCoupleProps)
           variant="h2"
           sx={{
             fontFamily: "var(--font-playfair), serif",
-            fontSize: { xs: "2rem", md: "2.75rem" },
-            fontWeight: 700,
+            fontSize: { xs: fontSizes["3xl"], md: fontSizes["4xl"] },
+            fontWeight: fontWeights.bold,
           }}
         >
           Nhân Vật Chính
         </Typography>
-        <Box sx={{ width: 50, height: 2, backgroundColor: primaryColor }} />
+        {/* Đường kẻ trang trí màu chủ đạo */}
+        <StackRowAlignJustCenter
+          sx={{ width: 50, height: 2, backgroundColor: primaryColor }}
+        />
       </StackColAlignJustCenter>
 
       {/* Thông tin 2 nhân vật chính */}
@@ -55,11 +62,11 @@ export function InvitationCouple({ couple, themeConfig }: InvitationCoupleProps)
             hoverEffect
             sx={{
               height: "100%",
-              borderRadius: 4,
-              boxShadow: "0 12px 32px rgba(0,0,0,0.06)",
+              borderRadius: `${borderRadius.md}px`,
+              boxShadow: shadows.md,
               textAlign: "center",
-              border: `1px solid rgba(183, 134, 40, 0.15)`,
-              p: 2,
+              border: `1px solid ${colors.border.gold}`,
+              p: `${paddings.md}px`,
             }}
           >
             <CardContent>
@@ -72,12 +79,12 @@ export function InvitationCouple({ couple, themeConfig }: InvitationCoupleProps)
                   mx: "auto",
                   mb: 3,
                   border: `3px solid ${primaryColor}`,
-                  boxShadow: "0 6px 20px rgba(0,0,0,0.12)",
+                  boxShadow: shadows.avatar,
                 }}
               />
               <Typography
                 variant="overline"
-                sx={{ color: primaryColor, fontWeight: 700, letterSpacing: 2 }}
+                sx={{ color: primaryColor, fontWeight: fontWeights.bold, letterSpacing: letterSpacings.wider }}
               >
                 CHÚ RỂ
               </Typography>
@@ -85,8 +92,8 @@ export function InvitationCouple({ couple, themeConfig }: InvitationCoupleProps)
                 variant="h4"
                 sx={{
                   fontFamily: "var(--font-playfair), serif",
-                  fontWeight: 700,
-                  fontSize: "1.75rem",
+                  fontWeight: fontWeights.bold,
+                  fontSize: fontSizes["2xl"],
                   my: 0.5,
                 }}
               >
@@ -96,7 +103,10 @@ export function InvitationCouple({ couple, themeConfig }: InvitationCoupleProps)
                 Con của: {groom.parentsName}
               </Typography>
               {groom.bio && (
-                <Typography variant="body2" sx={{ fontStyle: "italic", color: "text.secondary", px: 2 }}>
+                <Typography
+                  variant="body2"
+                  sx={{ fontStyle: "italic", color: "text.secondary", px: `${paddings.md}px` }}
+                >
                   &ldquo;{groom.bio}&rdquo;
                 </Typography>
               )}
@@ -110,11 +120,11 @@ export function InvitationCouple({ couple, themeConfig }: InvitationCoupleProps)
             hoverEffect
             sx={{
               height: "100%",
-              borderRadius: 4,
-              boxShadow: "0 12px 32px rgba(0,0,0,0.06)",
+              borderRadius: `${borderRadius.xl}px`,
+              boxShadow: shadows.md,
               textAlign: "center",
-              border: `1px solid rgba(183, 134, 40, 0.15)`,
-              p: 2,
+              border: `1px solid ${colors.border.gold}`,
+              p: `${paddings.md}px`,
             }}
           >
             <CardContent>
@@ -127,12 +137,12 @@ export function InvitationCouple({ couple, themeConfig }: InvitationCoupleProps)
                   mx: "auto",
                   mb: 3,
                   border: `3px solid ${primaryColor}`,
-                  boxShadow: "0 6px 20px rgba(0,0,0,0.12)",
+                  boxShadow: shadows.avatar,
                 }}
               />
               <Typography
                 variant="overline"
-                sx={{ color: primaryColor, fontWeight: 700, letterSpacing: 2 }}
+                sx={{ color: primaryColor, fontWeight: fontWeights.bold, letterSpacing: letterSpacings.wider }}
               >
                 CÔ DÂU
               </Typography>
@@ -140,8 +150,8 @@ export function InvitationCouple({ couple, themeConfig }: InvitationCoupleProps)
                 variant="h4"
                 sx={{
                   fontFamily: "var(--font-playfair), serif",
-                  fontWeight: 700,
-                  fontSize: "1.75rem",
+                  fontWeight: fontWeights.bold,
+                  fontSize: fontSizes["2xl"],
                   my: 0.5,
                 }}
               >
@@ -151,7 +161,10 @@ export function InvitationCouple({ couple, themeConfig }: InvitationCoupleProps)
                 Con của: {bride.parentsName}
               </Typography>
               {bride.bio && (
-                <Typography variant="body2" sx={{ fontStyle: "italic", color: "text.secondary", px: 2 }}>
+                <Typography
+                  variant="body2"
+                  sx={{ fontStyle: "italic", color: "text.secondary", px: `${paddings.md}px` }}
+                >
                   &ldquo;{bride.bio}&rdquo;
                 </Typography>
               )}
@@ -162,13 +175,13 @@ export function InvitationCouple({ couple, themeConfig }: InvitationCoupleProps)
 
       {/* Câu chuyện tình yêu */}
       {loveStory && (
-        <Box
+        <StackColAlignJustCenter
           sx={{
             mt: 8,
-            p: { xs: 3, md: 5 },
-            borderRadius: 4,
+            p: { xs: `${paddings.lg}px`, md: `${paddings["2xl"]}px` },
+            borderRadius: `${borderRadius.xl}px`,
             backgroundColor: "rgba(255, 255, 255, 0.8)",
-            border: `1px dashed rgba(183, 134, 40, 0.3)`,
+            border: `1px dashed ${colors.border.goldDashed}`,
             textAlign: "center",
             maxWidth: 800,
             mx: "auto",
@@ -178,7 +191,7 @@ export function InvitationCouple({ couple, themeConfig }: InvitationCoupleProps)
             variant="h4"
             sx={{
               fontFamily: "var(--font-great-vibes), cursive",
-              fontSize: { xs: "2.25rem", md: "3rem" },
+              fontSize: { xs: fontSizes["3xl"], md: fontSizes["4xl"] },
               color: primaryColor,
               mb: 1.5,
             }}
@@ -189,14 +202,14 @@ export function InvitationCouple({ couple, themeConfig }: InvitationCoupleProps)
             variant="body1"
             sx={{
               color: "text.secondary",
-              lineHeight: 1.8,
-              fontSize: "1.05rem",
+              lineHeight: lineHeights.loose,
+              fontSize: fontSizes.base,
               fontFamily: "var(--font-be-vietnam-pro), var(--font-inter), sans-serif",
             }}
           >
             {loveStory}
           </Typography>
-        </Box>
+        </StackColAlignJustCenter>
       )}
     </Container>
   );

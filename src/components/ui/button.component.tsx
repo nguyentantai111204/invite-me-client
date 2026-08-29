@@ -1,6 +1,10 @@
 import React from "react";
 import MuiButton, { type ButtonProps as MuiButtonProps } from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
+import { borderRadius, paddings } from "@/theme/spacing";
+import { colors } from "@/theme/colors";
+import { shadows } from "@/theme/shadows";
+import { fontWeights } from "@/theme/typography";
 
 export interface ButtonProps extends Omit<MuiButtonProps, "variant" | "color"> {
   variant?: "primary" | "secondary" | "gradient" | "outline" | "ghost";
@@ -32,48 +36,65 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     switch (variant) {
       case "gradient":
         customSx = {
-          background: "linear-gradient(135deg, #B78628 0%, #E58B7B 100%)",
-          color: "#FFFFFF",
-          boxShadow: "0 4px 14px rgba(183, 134, 40, 0.35)",
+          background: colors.brand.goldButtonGradient,
+          color: colors.text.inverse,
+          boxShadow: shadows.goldMd,
           "&:hover": {
-            background: "linear-gradient(135deg, #A1721C 0%, #DE7C66 100%)",
-            boxShadow: "0 6px 20px rgba(183, 134, 40, 0.45)",
+            background: colors.brand.goldButtonHoverGradient,
+            boxShadow: shadows.goldLg,
             transform: "translateY(-1px)",
           },
-          transition: "all 0.2s ease",
+          transition: "all 0.25s ease",
         };
         break;
       case "secondary":
         customSx = {
-          backgroundColor: "#E58B7B",
-          color: "#FFFFFF",
-          "&:hover": { backgroundColor: "#DE7C66" },
+          backgroundColor: colors.rose.main,
+          color: colors.text.inverse,
+          boxShadow: shadows.roseSm,
+          "&:hover": {
+            backgroundColor: colors.rose.dark,
+            boxShadow: shadows.roseLg,
+            transform: "translateY(-1px)",
+          },
+          transition: "all 0.25s ease",
         };
         break;
       case "outline":
         customSx = {
           backgroundColor: "transparent",
-          color: "#B78628",
-          border: "1.5px solid #B78628",
+          color: colors.gold.dark,
+          border: `1.5px solid ${colors.border.gold}`,
+          boxShadow: shadows.sm,
           "&:hover": {
-            backgroundColor: "rgba(183, 134, 40, 0.08)",
-            borderColor: "#875C12",
+            backgroundColor: colors.background.paper,
+            borderColor: colors.gold.main,
+            boxShadow: shadows.cardHover,
+            transform: "translateY(-1px)",
           },
+          transition: "all 0.25s ease",
         };
         break;
       case "ghost":
         customSx = {
           backgroundColor: "transparent",
           color: "text.primary",
-          "&:hover": { backgroundColor: "rgba(0, 0, 0, 0.05)" },
+          "&:hover": { backgroundColor: "rgba(183, 134, 40, 0.08)", color: "primary.main" },
+          transition: "all 0.2s ease",
         };
         break;
       case "primary":
       default:
         customSx = {
-          backgroundColor: "#B78628",
-          color: "#FFFFFF",
-          "&:hover": { backgroundColor: "#875C12" },
+          backgroundColor: colors.gold.main,
+          color: colors.text.inverse,
+          boxShadow: shadows.roseSm,
+          "&:hover": {
+            backgroundColor: colors.gold.dark,
+            boxShadow: shadows.goldMd,
+            transform: "translateY(-1px)",
+          },
+          transition: "all 0.25s ease",
         };
         break;
     }
@@ -83,11 +104,13 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         disabled={disabled || isLoading}
         sx={{
-          borderRadius: 2.5,
+          borderRadius: `${borderRadius.sm}px`,
           textTransform: "none",
-          fontWeight: 600,
-          px: 3,
-          py: 1.1,
+          fontWeight: fontWeights.semibold,
+          px: `${paddings.md}px`,
+          py: `${paddings.sm}px`,
+          letterSpacing: "0.01em",
+          whiteSpace: "nowrap",
           ...customSx,
           ...sx,
         }}
@@ -96,11 +119,11 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         {isLoading ? (
           <CircularProgress size={20} color="inherit" sx={{ mr: children ? 1 : 0 }} />
         ) : (
-          leftIcon && <span style={{ display: "inline-flex", marginRight: 8 }}>{leftIcon}</span>
+          leftIcon && <span style={{ display: "inline-flex", marginRight: 8, alignItems: "center" }}>{leftIcon}</span>
         )}
         {children}
         {!isLoading && rightIcon && (
-          <span style={{ display: "inline-flex", marginLeft: 8 }}>{rightIcon}</span>
+          <span style={{ display: "inline-flex", marginLeft: 8, alignItems: "center" }}>{rightIcon}</span>
         )}
       </MuiButton>
     );

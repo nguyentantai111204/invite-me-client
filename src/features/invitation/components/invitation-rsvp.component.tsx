@@ -16,6 +16,8 @@ import {
   StackCol,
   StackColAlignJustCenter,
 } from "@/components/ui";
+import { borderRadius } from "@/theme/spacing";
+import { fontWeights } from "@/theme/typography";
 import { invitationService } from "../services/invitation.service";
 import type { InvitationThemeConfig } from "../types/invitation.type";
 
@@ -46,7 +48,6 @@ export function InvitationRsvp({ invitationId, themeConfig }: InvitationRsvpProp
     try {
       setLoading(true);
       setStatus(null);
-
       const res = await invitationService.submitRsvp({
         invitationId,
         guestName: guestName.trim(),
@@ -80,7 +81,7 @@ export function InvitationRsvp({ invitationId, themeConfig }: InvitationRsvpProp
             sx={{
               letterSpacing: 3,
               color: primaryColor,
-              fontWeight: 700,
+              fontWeight: fontWeights.bold,
               fontSize: "0.85rem",
             }}
           >
@@ -91,7 +92,7 @@ export function InvitationRsvp({ invitationId, themeConfig }: InvitationRsvpProp
             sx={{
               fontFamily: "var(--font-playfair), serif",
               fontSize: { xs: "2rem", md: "2.5rem" },
-              fontWeight: 700,
+              fontWeight: fontWeights.bold,
             }}
           >
             Sự Hiện Diện Của Bạn
@@ -103,7 +104,7 @@ export function InvitationRsvp({ invitationId, themeConfig }: InvitationRsvpProp
 
         <Card
           sx={{
-            borderRadius: 4,
+            borderRadius: `${borderRadius.xl}px`,
             boxShadow: "0 12px 32px rgba(0,0,0,0.06)",
             border: "1px solid rgba(183, 134, 40, 0.15)",
             p: { xs: 2, sm: 3 },
@@ -111,7 +112,7 @@ export function InvitationRsvp({ invitationId, themeConfig }: InvitationRsvpProp
         >
           <CardContent>
             {status && (
-              <Alert severity={status.type} sx={{ mb: 3, borderRadius: 2 }}>
+              <Alert severity={status.type} sx={{ mb: 3, borderRadius: `${borderRadius.sm}px` }}>
                 {status.message}
               </Alert>
             )}
@@ -134,7 +135,7 @@ export function InvitationRsvp({ invitationId, themeConfig }: InvitationRsvpProp
                 />
 
                 <Box>
-                  <Typography variant="subtitle2" sx={{ mb: 1, fontWeight: 600 }}>
+                  <Typography variant="subtitle2" sx={{ mb: 1, fontWeight: fontWeights.semibold }}>
                     Bạn sẽ đến chung vui chứ?
                   </Typography>
                   <RadioGroup
@@ -184,8 +185,8 @@ export function InvitationRsvp({ invitationId, themeConfig }: InvitationRsvpProp
                   fullWidth
                   sx={{
                     py: 1.5,
-                    borderRadius: 3,
-                    fontWeight: 700,
+                    borderRadius: `${borderRadius.md}px`,
+                    fontWeight: fontWeights.bold,
                     fontSize: "1rem",
                   }}
                 >

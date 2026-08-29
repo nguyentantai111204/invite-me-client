@@ -1,9 +1,15 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
-import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import {
+  StackRowAlignJustCenter,
+  StackColAlignJustCenter,
+} from "@/components/ui";
+import { colors } from "@/theme/colors";
+import { shadows } from "@/theme/shadows";
+import { borderRadius, paddings } from "@/theme/spacing";
+import { fontWeights, fontSizes, letterSpacings, lineHeights } from "@/theme/typography";
 
 interface TimeLeft {
   days: number;
@@ -37,7 +43,7 @@ function calculateTimeLeft(targetDate: string): TimeLeft {
 
 export function InvitationCountdown({
   targetDate,
-  accentColor = "#B78628",
+  accentColor = colors.gold.main,
 }: InvitationCountdownProps) {
   const isHydrated = useSyncExternalStore(
     () => () => {},
@@ -63,14 +69,15 @@ export function InvitationCountdown({
   ];
 
   return (
-    <Box sx={{ py: 3, textAlign: "center" }}>
+    <StackColAlignJustCenter sx={{ py: `${paddings.lg}px`, textAlign: "center" }}>
+      {/* Nhãn đếm ngược */}
       <Typography
         variant="overline"
         sx={{
-          letterSpacing: 3,
+          letterSpacing: letterSpacings.widest,
           color: accentColor,
-          fontWeight: 700,
-          fontSize: "0.85rem",
+          fontWeight: fontWeights.bold,
+          fontSize: fontSizes.xs,
           display: "block",
           mb: 2,
         }}
@@ -78,32 +85,29 @@ export function InvitationCountdown({
         CÙNG ĐẾM NGƯỢC THỜI GIAN
       </Typography>
 
-      <Stack
-        direction="row"
-        spacing={{ xs: 1.5, sm: 3 }}
-        sx={{ justifyContent: "center", alignItems: "center" }}
-      >
+      <StackRowAlignJustCenter spacing={{ xs: 1.5, sm: 3 }}>
         {units.map((unit, index) => (
-          <Box
+          // Ô hiển thị từng đơn vị thời gian
+          <StackColAlignJustCenter
             key={index}
             sx={{
               minWidth: { xs: 65, sm: 85 },
-              p: { xs: 1.5, sm: 2 },
-              borderRadius: 3,
+              p: { xs: `${paddings.sm}px`, sm: `${paddings.md}px` },
+              borderRadius: `${borderRadius.md}px`,
               backgroundColor: "rgba(255, 255, 255, 0.9)",
               backdropFilter: "blur(10px)",
-              boxShadow: "0 8px 24px rgba(0,0,0,0.06)",
-              border: `1px solid rgba(183, 134, 40, 0.2)`,
+              boxShadow: shadows.md,
+              border: `1px solid ${colors.border.gold}`,
             }}
           >
             <Typography
               variant="h3"
               sx={{
-                fontWeight: 700,
+                fontWeight: fontWeights.bold,
                 color: accentColor,
-                fontSize: { xs: "1.75rem", sm: "2.5rem" },
+                fontSize: { xs: fontSizes["3xl"], sm: fontSizes["5xl"] },
                 fontFamily: "var(--font-playfair), serif",
-                lineHeight: 1.1,
+                lineHeight: lineHeights.none,
               }}
             >
               {String(unit.value).padStart(2, "0")}
@@ -112,17 +116,17 @@ export function InvitationCountdown({
               variant="caption"
               sx={{
                 color: "text.secondary",
-                fontWeight: 600,
-                fontSize: { xs: "0.7rem", sm: "0.8rem" },
+                fontWeight: fontWeights.semibold,
+                fontSize: { xs: fontSizes.xs, sm: fontSizes.sm },
                 textTransform: "uppercase",
-                letterSpacing: 1,
+                letterSpacing: letterSpacings.wide,
               }}
             >
               {unit.label}
             </Typography>
-          </Box>
+          </StackColAlignJustCenter>
         ))}
-      </Stack>
-    </Box>
+      </StackRowAlignJustCenter>
+    </StackColAlignJustCenter>
   );
 }

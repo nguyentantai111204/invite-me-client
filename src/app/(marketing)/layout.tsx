@@ -1,6 +1,7 @@
 import { Header } from "@/components/layout/header.component";
 import { Footer } from "@/components/layout/footer.component";
 import Box from "@mui/material/Box";
+import { StackCol, flex1Style } from "@/components/ui";
 
 export default function MarketingLayout({
   children,
@@ -8,12 +9,12 @@ export default function MarketingLayout({
   children: React.ReactNode;
 }) {
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+    <StackCol sx={{ minHeight: "100vh" }}>
       <Header />
-      <Box component="main" sx={{ flex: 1 }}>
+      <Box component="main" sx={flex1Style}>
         {children}
       </Box>
       <Footer />
-    </Box>
+    </StackCol>
   );
 }

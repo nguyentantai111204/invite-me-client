@@ -1,14 +1,19 @@
+import Image from "next/image";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Link from "next/link";
-import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
-import { siteConfig } from "@/config/site.config";
 import {
+  StackCenter,
   StackCol,
+  StackRowAlignJustCenter,
   StackRowAlignJustBetween,
 } from "@/components/ui";
+import { colors } from "@/theme/colors";
+import { borderRadius, paddings } from "@/theme/spacing";
+import { fontWeights, fontSizes, lineHeights } from "@/theme/typography";
+import { siteConfig } from "@/config/site.config";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -17,11 +22,11 @@ export function Footer() {
     <Box
       component="footer"
       sx={{
-        backgroundColor: "#1A1612",
-        color: "rgba(255, 255, 255, 0.7)",
-        pt: 10,
-        pb: 6,
-        borderTop: "1px solid rgba(183, 134, 40, 0.15)",
+        backgroundColor: colors.background.darkLuxury,
+        color: colors.text.mutedWhite,
+        pt: `${paddings["5xl"]}px`,
+        pb: `${paddings["2xl"]}px`,
+        borderTop: `1px solid ${colors.divider}`,
       }}
     >
       <Container maxWidth="lg">
@@ -29,39 +34,59 @@ export function Footer() {
           {/* Brand Col */}
           <Grid size={{ xs: 12, md: 4 }}>
             <StackCol spacing={2.5}>
-              <Link href="/" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: 8 }}>
-                <Box
-                  sx={{
-                    width: 36,
-                    height: 36,
-                    borderRadius: 2,
-                    background: "linear-gradient(135deg, #B78628 0%, #E58B7B 100%)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    color: "#FFFFFF",
-                  }}
-                >
-                  <AutoAwesomeIcon fontSize="small" />
-                </Box>
-                <Typography
-                  variant="h5"
-                  sx={{
-                    fontWeight: 900,
-                    letterSpacing: -0.5,
-                    color: "#FFFFFF",
-                  }}
-                >
-                  {siteConfig.name}
-                </Typography>
+              <Link href="/" style={{ textDecoration: "none" }}>
+                <StackRowAlignJustCenter spacing={1.5} sx={{ justifyContent: "flex-start" }}>
+                  {/* Logo với nền blend multiply */}
+                  <StackCenter
+                    sx={{
+                      width: 44,
+                      height: 44,
+                      borderRadius: `${borderRadius.sm}px`,
+                      backgroundColor: "rgba(255,255,255,0.9)",
+                      flexShrink: 0,
+                    }}
+                  >
+                    <Image
+                      src="/images/logo.png"
+                      alt={siteConfig.name}
+                      width={36}
+                      height={36}
+                      style={{ objectFit: "contain" }}
+                    />
+                  </StackCenter>
+                  <StackCol spacing={0}>
+                    <Typography
+                      sx={{
+                        fontFamily: "var(--font-playfair), serif",
+                        fontWeight: fontWeights.black,
+                        fontSize: fontSizes.xl,
+                        color: colors.text.inverse,
+                        lineHeight: 1.1,
+                      }}
+                    >
+                      {siteConfig.name}
+                    </Typography>
+                    <Typography
+                      sx={{
+                        fontSize: "0.6rem",
+                        fontWeight: fontWeights.medium,
+                        color: "rgba(255,255,255,0.5)",
+                        letterSpacing: "0.08em",
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      Thiệp cưới online
+                    </Typography>
+                  </StackCol>
+                </StackRowAlignJustCenter>
               </Link>
 
-              <Typography variant="body2" sx={{ lineHeight: 1.8, maxWidth: 320 }}>
-                Nền tảng thiết kế thiệp mời online cao cấp và thông minh. Giúp bạn gửi trọn
-                yêu thương và chuẩn bị sự kiện hoàn hảo chỉ trong vài phút.
+              <Typography variant="body2" sx={{ lineHeight: lineHeights.loose, maxWidth: 300, color: colors.text.mutedWhite }}>
+                Nền tảng thiết kế thiệp mời online sang trọng và thông minh nhất Việt Nam.
+                Gửi trọn yêu thương — chỉ trong vài phút.
               </Typography>
 
-              <Typography variant="caption" sx={{ color: "rgba(255, 255, 255, 0.5)" }}>
+              <Typography variant="caption" sx={{ color: colors.text.faintWhite }}>
                 Email: {siteConfig.links.supportEmail}
               </Typography>
             </StackCol>
@@ -69,36 +94,28 @@ export function Footer() {
 
           {/* Product Links */}
           <Grid size={{ xs: 6, sm: 4, md: 2.5 }}>
-            <Typography variant="subtitle1" sx={{ color: "#FFFFFF", fontWeight: 700, mb: 2.5 }}>
+            <Typography variant="subtitle1" sx={{ color: colors.text.inverse, fontWeight: fontWeights.bold, mb: 2.5 }}>
               Sản phẩm
             </Typography>
             <StackCol spacing={1.5}>
               <Link href="/templates" style={{ textDecoration: "none", color: "inherit" }}>
-                <Typography variant="body2" sx={{ "&:hover": { color: "primary.light" } }}>
-                  Mẫu thiệp cưới
-                </Typography>
+                <Typography variant="body2" sx={{ "&:hover": { color: colors.gold.light } }}>Mẫu thiệp cưới</Typography>
               </Link>
               <Link href="/templates" style={{ textDecoration: "none", color: "inherit" }}>
-                <Typography variant="body2" sx={{ "&:hover": { color: "primary.light" } }}>
-                  Thiệp sinh nhật
-                </Typography>
+                <Typography variant="body2" sx={{ "&:hover": { color: colors.gold.light } }}>Thiệp sinh nhật</Typography>
               </Link>
               <Link href="/templates" style={{ textDecoration: "none", color: "inherit" }}>
-                <Typography variant="body2" sx={{ "&:hover": { color: "primary.light" } }}>
-                  Thiệp sự kiện & Party
-                </Typography>
+                <Typography variant="body2" sx={{ "&:hover": { color: colors.gold.light } }}>Thiệp sự kiện & Party</Typography>
               </Link>
               <Link href="/i/minh-linh" style={{ textDecoration: "none", color: "inherit" }}>
-                <Typography variant="body2" sx={{ "&:hover": { color: "primary.light" } }}>
-                  Xem demo thực tế
-                </Typography>
+                <Typography variant="body2" sx={{ "&:hover": { color: colors.gold.light } }}>Xem demo thực tế</Typography>
               </Link>
             </StackCol>
           </Grid>
 
           {/* Features Links */}
           <Grid size={{ xs: 6, sm: 4, md: 2.5 }}>
-            <Typography variant="subtitle1" sx={{ color: "#FFFFFF", fontWeight: 700, mb: 2.5 }}>
+            <Typography variant="subtitle1" sx={{ color: colors.text.inverse, fontWeight: fontWeights.bold, mb: 2.5 }}>
               Tính năng
             </Typography>
             <StackCol spacing={1.5}>
@@ -111,29 +128,21 @@ export function Footer() {
 
           {/* Company Links */}
           <Grid size={{ xs: 12, sm: 4, md: 3 }}>
-            <Typography variant="subtitle1" sx={{ color: "#FFFFFF", fontWeight: 700, mb: 2.5 }}>
+            <Typography variant="subtitle1" sx={{ color: colors.text.inverse, fontWeight: fontWeights.bold, mb: 2.5 }}>
               Khám phá
             </Typography>
             <StackCol spacing={1.5}>
               <Link href="/pricing" style={{ textDecoration: "none", color: "inherit" }}>
-                <Typography variant="body2" sx={{ "&:hover": { color: "primary.light" } }}>
-                  Bảng giá dịch vụ
-                </Typography>
+                <Typography variant="body2" sx={{ "&:hover": { color: colors.gold.light } }}>Bảng giá dịch vụ</Typography>
               </Link>
               <Link href="/about" style={{ textDecoration: "none", color: "inherit" }}>
-                <Typography variant="body2" sx={{ "&:hover": { color: "primary.light" } }}>
-                  Về chúng tôi
-                </Typography>
+                <Typography variant="body2" sx={{ "&:hover": { color: colors.gold.light } }}>Về chúng tôi</Typography>
               </Link>
               <Link href="/terms" style={{ textDecoration: "none", color: "inherit" }}>
-                <Typography variant="body2" sx={{ "&:hover": { color: "primary.light" } }}>
-                  Điều khoản sử dụng
-                </Typography>
+                <Typography variant="body2" sx={{ "&:hover": { color: colors.gold.light } }}>Điều khoản sử dụng</Typography>
               </Link>
               <Link href="/privacy" style={{ textDecoration: "none", color: "inherit" }}>
-                <Typography variant="body2" sx={{ "&:hover": { color: "primary.light" } }}>
-                  Chính sách bảo mật
-                </Typography>
+                <Typography variant="body2" sx={{ "&:hover": { color: colors.gold.light } }}>Chính sách bảo mật</Typography>
               </Link>
             </StackCol>
           </Grid>
@@ -145,16 +154,16 @@ export function Footer() {
           sx={{
             mt: 8,
             pt: 4,
-            borderTop: "1px solid rgba(255, 255, 255, 0.08)",
+            borderTop: `1px solid ${colors.border.whiteSubtle}`,
             gap: 2,
             textAlign: { xs: "center", sm: "left" },
           }}
         >
-          <Typography variant="body2" sx={{ fontSize: "0.85rem" }}>
-            © {currentYear} {siteConfig.name}. Bản quyền thuộc về InviteMe.
+          <Typography variant="body2" sx={{ fontSize: fontSizes.sm, color: colors.text.mutedWhite }}>
+            © {currentYear} {siteConfig.name}. Bản quyền thuộc về {siteConfig.name}.
           </Typography>
 
-          <Typography variant="caption" sx={{ color: "rgba(255, 255, 255, 0.4)" }}>
+          <Typography variant="caption" sx={{ color: colors.text.faintWhite, fontStyle: "italic" }}>
             Thiết kế dành cho những khoảnh khắc đáng nhớ nhất.
           </Typography>
         </StackRowAlignJustBetween>

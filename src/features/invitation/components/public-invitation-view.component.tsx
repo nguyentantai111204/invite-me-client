@@ -7,6 +7,8 @@ import {
   Button,
   StackColAlignJustCenter,
 } from "@/components/ui";
+import { colors } from "@/theme/colors";
+import { borderRadius, paddings } from "@/theme/spacing";
 import type { InvitationData } from "../types/invitation.type";
 import { InvitationHero } from "./invitation-hero.component";
 import { InvitationCountdown } from "./invitation-countdown.component";
@@ -30,8 +32,8 @@ export function PublicInvitationView({ invitation }: PublicInvitationViewProps) 
     <Box
       className={fontVariables}
       sx={{
-        backgroundColor: invitation.themeConfig.backgroundColor || "#FAF8F5",
-        color: "#2C2C2C",
+        backgroundColor: invitation.themeConfig.backgroundColor || colors.background.default,
+        color: colors.text.primary,
         minHeight: "100vh",
         position: "relative",
       }}
@@ -87,26 +89,26 @@ export function PublicInvitationView({ invitation }: PublicInvitationViewProps) 
       {/* 8. Footer quảng bá thương hiệu */}
       <Box
         sx={{
-          py: 6,
+          py: `${paddings["3xl"]}px`,
           textAlign: "center",
-          backgroundColor: "#1F1F1F",
-          color: "rgba(255, 255, 255, 0.7)",
+          backgroundColor: colors.background.darkFooter,
+          color: colors.text.mutedWhite,
         }}
       >
         <Container maxWidth="sm">
           <StackColAlignJustCenter spacing={2}>
             <Typography variant="body2">
-              Thiệp mời điện tử được tạo bởi <strong>InviteMe</strong>
+              Thiệp mời điện tử được tạo bởi <strong>TTNT</strong>
             </Typography>
             <Link href="/" style={{ textDecoration: "none" }}>
               <Button
                 variant="outline"
                 size="small"
                 sx={{
-                  color: "#FFFFFF",
-                  borderColor: "rgba(255, 255, 255, 0.3)",
-                  "&:hover": { borderColor: "#FFFFFF", backgroundColor: "rgba(255,255,255,0.05)" },
-                  borderRadius: 2,
+                  color: colors.text.inverse,
+                  borderColor: colors.border.whiteSubtle,
+                  "&:hover": { borderColor: colors.text.inverse, backgroundColor: "rgba(255,255,255,0.05)" },
+                  borderRadius: `${borderRadius.sm}px`,
                   textTransform: "none",
                 }}
               >

@@ -1,12 +1,19 @@
-import Box from "@mui/material/Box";
 import CardContent from "@mui/material/CardContent";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import DirectionsIcon from "@mui/icons-material/Directions";
+import PlaceIcon from "@mui/icons-material/Place";
 import {
   Button,
   Card,
   StackColAlignJustCenter,
+  StackRowAlignJustCenter,
 } from "@/components/ui";
+import { colors } from "@/theme/colors";
+import { shadows } from "@/theme/shadows";
+import { borderRadius, paddings } from "@/theme/spacing";
+import { fontWeights, fontSizes, lineHeights, letterSpacings } from "@/theme/typography";
 import type { EventLocation, InvitationThemeConfig } from "../types/invitation.type";
 
 interface InvitationLocationProps {
@@ -15,93 +22,134 @@ interface InvitationLocationProps {
 }
 
 export function InvitationLocation({ location, themeConfig }: InvitationLocationProps) {
-  const primaryColor = themeConfig.primaryColor || "#B78628";
+  const primaryColor = themeConfig.primaryColor || colors.gold.main;
 
   return (
-    <Container maxWidth="md" sx={{ py: 8 }}>
+    <Container maxWidth="md" sx={{ py: `${paddings["3xl"]}px` }}>
       {/* Tiêu đề mục địa điểm */}
       <StackColAlignJustCenter spacing={1.5} sx={{ textAlign: "center", mb: 6 }}>
-        <Typography
-          variant="overline"
-          sx={{
-            letterSpacing: 3,
-            color: primaryColor,
-            fontWeight: 700,
-            fontSize: "0.85rem",
-          }}
-        >
-          ĐỊA ĐIỂM TỔ CHỨC
-        </Typography>
+        <StackRowAlignJustCenter spacing={1}>
+          <LocationOnIcon sx={{ color: primaryColor, fontSize: 20 }} />
+          <Typography
+            variant="overline"
+            sx={{
+              letterSpacing: letterSpacings.mega,
+              color: primaryColor,
+              fontWeight: fontWeights.bold,
+              fontSize: fontSizes.xs,
+            }}
+          >
+            ĐỊA ĐIỂM TỔ CHỨC
+          </Typography>
+        </StackRowAlignJustCenter>
         <Typography
           variant="h2"
           sx={{
             fontFamily: "var(--font-playfair), serif",
-            fontSize: { xs: "2rem", md: "2.75rem" },
-            fontWeight: 700,
+            fontSize: { xs: fontSizes["3xl"], md: fontSizes["4xl"] },
+            fontWeight: fontWeights.bold,
           }}
         >
           Nơi Hạnh Phúc Bắt Đầu
         </Typography>
-        <Box sx={{ width: 50, height: 2, backgroundColor: primaryColor }} />
+        {/* Đường kẻ trang trí màu chủ đạo */}
+        <StackRowAlignJustCenter
+          sx={{ width: 48, height: 2, backgroundColor: primaryColor, borderRadius: `${borderRadius.xs}px` }}
+        />
       </StackColAlignJustCenter>
 
-      {/* Thông tin chi tiết địa điểm */}
+      {/* Card thông tin địa điểm chi tiết */}
       <Card
         hoverEffect
         sx={{
-          borderRadius: 4,
-          boxShadow: "0 12px 32px rgba(0,0,0,0.06)",
-          border: "1px solid rgba(183, 134, 40, 0.15)",
-          textAlign: "center",
-          p: { xs: 2, sm: 4 },
+          borderRadius: `${borderRadius.lg}px`,
+          boxShadow: shadows.card,
+          border: `1px solid ${colors.border.gold}`,
+          overflow: "hidden",
         }}
       >
-        <CardContent>
-          <Typography
-            variant="h4"
-            sx={{
-              fontFamily: "var(--font-playfair), serif",
-              fontWeight: 700,
-              fontSize: { xs: "1.5rem", sm: "2rem" },
-              color: primaryColor,
-              mb: 1,
-            }}
-          >
-            {location.venueName}
-          </Typography>
+        {/* Dải màu trang trí phía trên */}
+        <StackRowAlignJustCenter
+          sx={{
+            height: 6,
+            background: `linear-gradient(90deg, ${primaryColor}, ${colors.rose.main})`,
+          }}
+        />
 
-          {location.hallName && (
-            <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: "text.primary" }}>
-              {location.hallName}
-            </Typography>
-          )}
-
-          <Typography
-            variant="body1"
-            color="text.secondary"
-            sx={{ fontSize: "1.05rem", maxWidth: 500, mx: "auto", mb: 3 }}
-          >
-            {location.address}, {location.city}
-          </Typography>
-
-          {location.mapUrl && (
-            <Button
-              variant="primary"
-              href={location.mapUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              size="large"
+        <CardContent sx={{ p: { xs: `${paddings.xl}px`, sm: `${paddings["2xl"]}px` } }}>
+          <StackColAlignJustCenter spacing={2} sx={{ textAlign: "center" }}>
+            {/* Icon địa điểm */}
+            <StackColAlignJustCenter
               sx={{
-                px: 4,
-                py: 1.25,
-                borderRadius: 3,
-                textTransform: "none",
-                fontWeight: 600,
+                width: 56,
+                height: 56,
+                borderRadius: `${borderRadius.md}px`,
+                backgroundColor: `${primaryColor}18`,
+                border: `1px solid ${primaryColor}30`,
               }}
             >
-              Chỉ đường trên Google Maps
-            </Button>
-          )}
+              <PlaceIcon sx={{ color: primaryColor, fontSize: 28 }} />
+            </StackColAlignJustCenter>
+
+            {/* Tên địa điểm */}
+            <StackColAlignJustCenter spacing={0.5}>
+              <Typography
+                variant="h4"
+                sx={{
+                  fontFamily: "var(--font-playfair), serif",
+                  fontWeight: fontWeights.bold,
+                  fontSize: { xs: fontSizes.xl, sm: fontSizes["2xl"] },
+                  color: primaryColor,
+                }}
+              >
+                {location.venueName}
+              </Typography>
+
+              {location.hallName && (
+                <Typography
+                  variant="subtitle1"
+                  sx={{ fontWeight: fontWeights.semibold, color: "text.primary" }}
+                >
+                  {location.hallName}
+                </Typography>
+              )}
+            </StackColAlignJustCenter>
+
+            {/* Địa chỉ */}
+            <Typography
+              variant="body1"
+              color="text.secondary"
+              sx={{
+                fontSize: fontSizes.base,
+                lineHeight: lineHeights.relaxed,
+                maxWidth: 480,
+                mx: "auto",
+                px: `${paddings.md}px`,
+              }}
+            >
+              {location.address}, {location.city}
+            </Typography>
+
+            {/* Nút chỉ đường */}
+            {location.mapUrl && (
+              <Button
+                variant="gradient"
+                href={location.mapUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                size="large"
+                leftIcon={<DirectionsIcon />}
+                sx={{
+                  px: `${paddings.xl}px`,
+                  py: `${paddings.md}px`,
+                  fontSize: fontSizes.base,
+                  mt: `${paddings.sm}px`,
+                }}
+              >
+                Chỉ đường trên Google Maps
+              </Button>
+            )}
+          </StackColAlignJustCenter>
         </CardContent>
       </Card>
     </Container>
