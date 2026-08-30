@@ -21,7 +21,7 @@ export const rsvpApi = {
 
   // Chủ tiệc lấy danh sách khách mời đã RSVP (Dashboard)
   getInvitationRsvps(invitationId: string): Promise<RsvpRecord[]> {
-    return httpClient.get<RsvpRecord[]>(`/invitations/${invitationId}/rsvps`);
+    return httpClient.get<RsvpRecord[]>(`/rsvp/invitation/${invitationId}`);
   },
 
   // Xuất danh sách RSVP ra file Excel hoặc CSV

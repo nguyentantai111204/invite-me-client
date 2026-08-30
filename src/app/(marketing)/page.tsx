@@ -27,6 +27,7 @@ import {
   StackColAlignJustBetween,
   stackColumnStyle,
 } from "@/components/ui";
+import { FeaturedTemplates } from "@/features/invitation/components";
 import { colors } from "@/theme/colors";
 import { shadows } from "@/theme/shadows";
 import { borderRadius, paddings } from "@/theme/spacing";
@@ -461,144 +462,8 @@ export default function MarketingHomePage() {
             </Link>
           </StackRowAlignJustBetween>
 
-          <Grid container spacing={3}>
-            {TEMPLATES_PREVIEW.map((tpl) => (
-              <Grid key={tpl.id} size={{ xs: 12, sm: 6, md: 4 }}>
-                <Card
-                  hoverEffect
-                  sx={{
-                    ...stackColumnStyle,
-                    borderRadius: `${borderRadius.md}px`,
-                    overflow: "hidden",
-                    height: "100%",
-                    // Hiệu ứng hover overlay image
-                    "&:hover .tpl-overlay": { opacity: 1 },
-                    "&:hover .tpl-img": { transform: "scale(1.05)" },
-                  }}
-                >
-                  {/* Image area với hover overlay */}
-                  <Box sx={{ height: 240, position: "relative", overflow: "hidden" }}>
-                    <Box
-                      className="tpl-img"
-                      sx={{
-                        height: "100%",
-                        backgroundImage: `url('${tpl.image}')`,
-                        backgroundSize: "cover",
-                        backgroundPosition: "center",
-                        transition: "transform 0.5s ease",
-                      }}
-                    />
-                    {/* Hover overlay với preview button */}
-                    <StackColAlignJustCenter
-                      className="tpl-overlay"
-                      sx={{
-                        position: "absolute",
-                        inset: 0,
-                        backgroundColor: "rgba(0,0,0,0.55)",
-                        opacity: 0,
-                        transition: "opacity 0.3s ease",
-                      }}
-                    >
-                      <Link href={`/i/${tpl.previewSlug}`} style={{ textDecoration: "none" }}>
-                        <Button
-                          variant="secondary"
-                          sx={{
-                            backgroundColor: "rgba(255,255,255,0.95)",
-                            color: colors.gold.dark,
-                            "&:hover": { backgroundColor: "#fff" },
-                            fontWeight: fontWeights.bold,
-                          }}
-                        >
-                          Xem thiệp trực tiếp
-                        </Button>
-                      </Link>
-                    </StackColAlignJustCenter>
-                    {/* Badge góc trên trái */}
-                    <Box sx={{ position: "absolute", top: paddings.md, left: paddings.md }}>
-                      <Badge color={tpl.badgeColor} size="small">{tpl.badge}</Badge>
-                    </Box>
-                    {/* Rating góc trên phải */}
-                    <StackRowAlignJustCenter
-                      spacing={0.5}
-                      sx={{
-                        position: "absolute",
-                        top: paddings.md,
-                        right: paddings.md,
-                        backgroundColor: "rgba(0,0,0,0.55)",
-                        backdropFilter: "blur(6px)",
-                        borderRadius: `${borderRadius.xs}px`,
-                        px: `${paddings.sm}px`,
-                        py: "2px",
-                      }}
-                    >
-                      <StarIcon sx={{ color: "#FBBF24", fontSize: 12 }} />
-                      <Typography sx={{ color: "#fff", fontSize: "0.7rem", fontWeight: fontWeights.bold }}>{tpl.rating}</Typography>
-                    </StackRowAlignJustCenter>
-                  </Box>
-
-                  {/* Card nội dung */}
-                  <StackColAlignJustBetween sx={{ p: `${paddings.lg}px`, flex: 1, gap: `${paddings.md}px` }}>
-                    <StackCol spacing={1.5}>
-                      {/* Category + used count */}
-                      <StackRowAlignJustBetween>
-                        <Typography variant="caption" sx={{ color: colors.text.secondary, fontWeight: fontWeights.semibold, textTransform: "uppercase", letterSpacing: letterSpacings.wider, fontSize: fontSizes.xs }}>
-                          {tpl.category}
-                        </Typography>
-                        <StackRowAlignJustCenter spacing={0.5}>
-                          <PeopleIcon sx={{ fontSize: 12, color: colors.text.secondary }} />
-                          <Typography variant="caption" sx={{ color: colors.text.secondary, fontSize: fontSizes.xs }}>
-                            {tpl.usedCount} dùng
-                          </Typography>
-                        </StackRowAlignJustCenter>
-                      </StackRowAlignJustBetween>
-
-                      <Typography variant="h5" sx={{ fontWeight: fontWeights.bold, fontSize: fontSizes.lg, lineHeight: lineHeights.snug }}>
-                        {tpl.title}
-                      </Typography>
-
-                      <Typography variant="body2" color="text.secondary" sx={{ fontSize: fontSizes.sm, lineHeight: lineHeights.relaxed }}>
-                        {tpl.description}
-                      </Typography>
-
-                      {/* Tags */}
-                      <StackRowAlignJustCenter spacing={0.75} sx={{ flexWrap: "wrap", justifyContent: "flex-start" }}>
-                        {tpl.tags.map((tag) => (
-                          <Chip
-                            key={tag}
-                            label={tag}
-                            size="small"
-                            sx={{
-                              height: 22,
-                              fontSize: "0.68rem",
-                              fontWeight: fontWeights.semibold,
-                              backgroundColor: `${colors.gold.main}12`,
-                              color: colors.gold.dark,
-                              border: `1px solid ${colors.border.goldLight}`,
-                              borderRadius: `${borderRadius.xs}px`,
-                            }}
-                          />
-                        ))}
-                      </StackRowAlignJustCenter>
-                    </StackCol>
-
-                    {/* Actions */}
-                    <StackRowAlignJustCenter spacing={1.5}>
-                      <Link href={`/i/${tpl.previewSlug}`} style={{ textDecoration: "none" }}>
-                        <Button variant="outline" size="small">
-                          Xem thử
-                        </Button>
-                      </Link>
-                      <Link href={`/templates/${tpl.id}`} style={{ textDecoration: "none" }}>
-                        <Button variant="gradient" size="small">
-                          Dùng mẫu này
-                        </Button>
-                      </Link>
-                    </StackRowAlignJustCenter>
-                  </StackColAlignJustBetween>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
+          {/* Featured Templates Dynamic List from Backend API */}
+          <FeaturedTemplates />
         </Container>
       </Box>
 

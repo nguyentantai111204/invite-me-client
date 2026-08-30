@@ -12,18 +12,24 @@ export interface InvitationTemplate {
   id: string;
   title: string;
   slug: string;
+  description?: string | null;
   thumbnailUrl: string;
-  previewUrl: string;
+  previewSlug?: string | null;
   category: string;
   isPremium: boolean;
+  isPopular?: boolean;
+  tags?: string[];
   themeConfig: {
     fontIds: string[];
     primaryColor: string;
     secondaryColor: string;
     accentColor?: string;
+    backgroundColor?: string;
+    autoPlayMusic?: boolean;
   };
-  sampleData: Record<string, unknown>;
+  sampleData?: Record<string, unknown> | null;
   createdAt: string;
+  updatedAt?: string;
 }
 
 export const templateApi = {

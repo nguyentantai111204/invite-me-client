@@ -18,22 +18,31 @@ import {
 // Export các layout styles để dùng chung cho TableCell, Box, v.v.
 export * from "@/theme/styles/layout.styles";
 
-export type CustomStackProps = StackProps;
+export interface CustomStackProps extends Omit<StackProps, "gap"> {
+  gap?: string | number;
+}
 
 // Stack hướng ngang (Row) cơ bản
 export const StackRow = React.forwardRef<HTMLDivElement, CustomStackProps>(
-  ({ sx, direction = "row", ...props }, ref) => (
-    <Stack ref={ref} direction={direction} sx={{ ...stackRowStyle, ...sx }} {...props} />
+  ({ sx, direction = "row", gap, spacing, ...props }, ref) => (
+    <Stack
+      ref={ref}
+      direction={direction}
+      spacing={spacing !== undefined ? spacing : gap}
+      sx={{ ...stackRowStyle, ...sx }}
+      {...props}
+    />
   )
 );
 StackRow.displayName = "StackRow";
 
 // Stack hàng ngang căn giữa 2 trục (Align Center + Justify Center)
 export const StackRowAlignJustCenter = React.forwardRef<HTMLDivElement, CustomStackProps>(
-  ({ sx, direction = "row", ...props }, ref) => (
+  ({ sx, direction = "row", gap, spacing, ...props }, ref) => (
     <Stack
       ref={ref}
       direction={direction}
+      spacing={spacing !== undefined ? spacing : gap}
       sx={{ ...stackRowAlignJustCenterStyle, ...sx }}
       {...props}
     />
@@ -44,10 +53,11 @@ export const StackRowCenter = StackRowAlignJustCenter;
 
 // Stack hàng ngang căn đều 2 bên (Align Center + Justify Space-Between)
 export const StackRowAlignJustBetween = React.forwardRef<HTMLDivElement, CustomStackProps>(
-  ({ sx, direction = "row", ...props }, ref) => (
+  ({ sx, direction = "row", gap, spacing, ...props }, ref) => (
     <Stack
       ref={ref}
       direction={direction}
+      spacing={spacing !== undefined ? spacing : gap}
       sx={{ ...stackRowAlignJustBetweenStyle, ...sx }}
       {...props}
     />
@@ -58,10 +68,11 @@ export const StackRowBetween = StackRowAlignJustBetween;
 
 // Stack hàng ngang căn đầu (Align Center + Justify Flex-Start)
 export const StackRowAlignJustStart = React.forwardRef<HTMLDivElement, CustomStackProps>(
-  ({ sx, direction = "row", ...props }, ref) => (
+  ({ sx, direction = "row", gap, spacing, ...props }, ref) => (
     <Stack
       ref={ref}
       direction={direction}
+      spacing={spacing !== undefined ? spacing : gap}
       sx={{ ...stackRowAlignJustStartStyle, ...sx }}
       {...props}
     />
@@ -72,10 +83,11 @@ export const StackRowStart = StackRowAlignJustStart;
 
 // Stack hàng ngang căn cuối (Align Center + Justify Flex-End)
 export const StackRowAlignJustEnd = React.forwardRef<HTMLDivElement, CustomStackProps>(
-  ({ sx, direction = "row", ...props }, ref) => (
+  ({ sx, direction = "row", gap, spacing, ...props }, ref) => (
     <Stack
       ref={ref}
       direction={direction}
+      spacing={spacing !== undefined ? spacing : gap}
       sx={{ ...stackRowAlignJustEndStyle, ...sx }}
       {...props}
     />
@@ -86,16 +98,28 @@ export const StackRowEnd = StackRowAlignJustEnd;
 
 // Stack hàng ngang tự động xuống dòng khi đầy
 export const StackRowWrap = React.forwardRef<HTMLDivElement, CustomStackProps>(
-  ({ sx, direction = "row", ...props }, ref) => (
-    <Stack ref={ref} direction={direction} sx={{ ...stackRowWrapStyle, ...sx }} {...props} />
+  ({ sx, direction = "row", gap, spacing, ...props }, ref) => (
+    <Stack
+      ref={ref}
+      direction={direction}
+      spacing={spacing !== undefined ? spacing : gap}
+      sx={{ ...stackRowWrapStyle, ...sx }}
+      {...props}
+    />
   )
 );
 StackRowWrap.displayName = "StackRowWrap";
 
 // Stack hướng dọc (Column) cơ bản
 export const StackCol = React.forwardRef<HTMLDivElement, CustomStackProps>(
-  ({ sx, direction = "column", ...props }, ref) => (
-    <Stack ref={ref} direction={direction} sx={{ ...stackColumnStyle, ...sx }} {...props} />
+  ({ sx, direction = "column", gap, spacing, ...props }, ref) => (
+    <Stack
+      ref={ref}
+      direction={direction}
+      spacing={spacing !== undefined ? spacing : gap}
+      sx={{ ...stackColumnStyle, ...sx }}
+      {...props}
+    />
   )
 );
 StackCol.displayName = "StackCol";
@@ -103,10 +127,11 @@ export const StackColumn = StackCol;
 
 // Stack cột dọc căn giữa 2 trục (Align Center + Justify Center)
 export const StackColAlignJustCenter = React.forwardRef<HTMLDivElement, CustomStackProps>(
-  ({ sx, direction = "column", ...props }, ref) => (
+  ({ sx, direction = "column", gap, spacing, ...props }, ref) => (
     <Stack
       ref={ref}
       direction={direction}
+      spacing={spacing !== undefined ? spacing : gap}
       sx={{ ...stackColAlignJustCenterStyle, ...sx }}
       {...props}
     />
@@ -117,10 +142,11 @@ export const StackColCenter = StackColAlignJustCenter;
 
 // Stack cột dọc căn đều 2 bên (Align Center + Justify Space-Between)
 export const StackColAlignJustBetween = React.forwardRef<HTMLDivElement, CustomStackProps>(
-  ({ sx, direction = "column", ...props }, ref) => (
+  ({ sx, direction = "column", gap, spacing, ...props }, ref) => (
     <Stack
       ref={ref}
       direction={direction}
+      spacing={spacing !== undefined ? spacing : gap}
       sx={{ ...stackColAlignJustBetweenStyle, ...sx }}
       {...props}
     />
@@ -131,10 +157,11 @@ export const StackColBetween = StackColAlignJustBetween;
 
 // Stack cột dọc căn trái (Align Flex-Start + Justify Center)
 export const StackColAlignJustStart = React.forwardRef<HTMLDivElement, CustomStackProps>(
-  ({ sx, direction = "column", ...props }, ref) => (
+  ({ sx, direction = "column", gap, spacing, ...props }, ref) => (
     <Stack
       ref={ref}
       direction={direction}
+      spacing={spacing !== undefined ? spacing : gap}
       sx={{ ...stackColAlignJustStartStyle, ...sx }}
       {...props}
     />
@@ -145,10 +172,11 @@ export const StackColStart = StackColAlignJustStart;
 
 // Stack cột dọc căn phải (Align Flex-End + Justify Center)
 export const StackColAlignJustEnd = React.forwardRef<HTMLDivElement, CustomStackProps>(
-  ({ sx, direction = "column", ...props }, ref) => (
+  ({ sx, direction = "column", gap, spacing, ...props }, ref) => (
     <Stack
       ref={ref}
       direction={direction}
+      spacing={spacing !== undefined ? spacing : gap}
       sx={{ ...stackColAlignJustEndStyle, ...sx }}
       {...props}
     />
@@ -159,8 +187,13 @@ export const StackColEnd = StackColAlignJustEnd;
 
 // Stack căn giữa tuyệt đối cả 2 chiều
 export const StackCenter = React.forwardRef<HTMLDivElement, CustomStackProps>(
-  ({ sx, ...props }, ref) => (
-    <Stack ref={ref} sx={{ ...centerStyle, ...sx }} {...props} />
+  ({ sx, gap, spacing, ...props }, ref) => (
+    <Stack
+      ref={ref}
+      spacing={spacing !== undefined ? spacing : gap}
+      sx={{ ...centerStyle, ...sx }}
+      {...props}
+    />
   )
 );
 StackCenter.displayName = "StackCenter";

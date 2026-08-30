@@ -1,4 +1,5 @@
 import { envConfig } from "@/config/env.config";
+import { rsvpApi } from "@/services/api";
 import type {
   InvitationData,
   RsvpSubmissionPayload,
@@ -125,40 +126,36 @@ export const invitationService = {
   // Lấy dữ liệu thiệp mời công khai theo Slug trên Server Side (SSR)
   async getPublicInvitationBySlug(slug: string): Promise<InvitationData | null> {
     try {
-      // Khi đã có Backend API thực tế
-      if (process.env.NODE_ENV === "production" && process.env.API_SECRET_KEY) {
-        const res = await fetch(`${API_BASE_URL}/invitations/public/${slug}`, {
-          next: { revalidate: 60 }, // ISR cache 60s
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+      const res = await fetch(`${API_BASE_URL}/invitations/public/${slug}`, {
+        next: { revalidate: 30 }, // Cache 30s
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
-        if (!res.ok) {
-          if (res.status === 404) return null;
-          throw new Error(`Failed to fetch invitation: ${res.statusText}`);
+      if (res.ok) {
+        const json = await res.json();
+        const data = json?.data !== undefined ? json.data : json;
+        if (data) {
+          return {
+            ...data,
+            couple: data.coupleData || data.couple,
+            location: data.locationData || data.location,
+            schedule: data.scheduleData || data.schedule || [],
+            gallery: data.galleryData || data.gallery || [],
+            bankAccounts: data.bankAccountsData || data.bankAccounts || [],
+          } as InvitationData;
         }
-
-        const data = await res.json();
-        return data?.data ?? null;
       }
 
-      // Trả về Mock Data (hỗ trợ slug "minh-linh" hoặc trả về mock template cho mọi slug hợp lệ)
+      // Trả về Mock Data nếu là slug test "minh-linh"
       if (MOCK_INVITATIONS[slug]) {
         return MOCK_INVITATIONS[slug];
       }
 
-      // Dynamic fallback để test bất kỳ slug nào
-      return {
-        ...MOCK_INVITATIONS["minh-linh"],
-        id: `inv-${slug}`,
-        slug,
-        title: `Lễ Thành Hôn (${slug.toUpperCase()})`,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-      };
+      return null;
     } catch (error) {
-      console.error(`[invitationService.getPublicInvitationBySlug] Error:`, error);
+      console.warn(`[invitationService.getPublicInvitationBySlug] Failed to fetch from API, checking fallback:`, error);
       return MOCK_INVITATIONS[slug] || null;
     }
   },
@@ -166,27 +163,8 @@ export const invitationService = {
   // Gửi phản hồi RSVP từ khách mời
   async submitRsvp(payload: RsvpSubmissionPayload): Promise<{ success: boolean; message: string }> {
     try {
-      if (process.env.NODE_ENV === "production" && process.env.NEXT_PUBLIC_API_URL) {
-        const res = await fetch(`${API_BASE_URL}/rsvp`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        });
-
-        if (!res.ok) {
-          const errData = await res.json().catch(() => ({}));
-          throw new Error(errData?.message || "Gửi phản hồi thất bại");
-        }
-
-        return { success: true, message: "Gửi xác nhận tham dự thành công!" };
-      }
-
-      // Giả lập độ trễ mạng khi submit trong môi trường dev
-      await new Promise((resolve) => setTimeout(resolve, 600));
-      return {
-        success: true,
-        message: "Cảm ơn bạn đã gửi lời chúc và xác nhận tham dự!",
-      };
+      const res = await rsvpApi.submitRsvp(payload);
+      return { success: true, message: res.message || "Gửi xác nhận tham dự thành công!" };
     } catch (error) {
       console.error(`[invitationService.submitRsvp] Error:`, error);
       throw error;

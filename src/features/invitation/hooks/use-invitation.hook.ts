@@ -1,16 +1,53 @@
 "use client";
 
 import useSWR from "swr";
-import { invitationApi, type UpdateInvitationDto } from "@/services/api";
+import { useCallback } from "react";
+import { invitationApi } from "@/services/api";
 import type { InvitationData } from "../types/invitation.type";
 
-/**
- * ============================================================================
- * HOOK: USE INVITATION (Client-side Data Fetching & Mutation with SWR)
- * ============================================================================
- * Architecture Flow:
- * Component -> useInvitation() Hook -> invitationApi -> NestJS Backend
- */
+// Hook lấy danh sách tất cả các thiệp của user đăng nhập
+export function useMyInvitations() {
+  const { data, error, isLoading, mutate } = useSWR<InvitationData[]>(
+    "/invitations/me",
+    () => invitationApi.getMyInvitations(),
+    {
+      revalidateOnFocus: true,
+      dedupingInterval: 5000,
+    }
+  );
+
+  const deleteInvitation = useCallback(
+    async (id: string) => {
+      await invitationApi.deleteInvitation(id);
+      await mutate((prev) => (prev ? prev.filter((item) => item.id !== id) : []), false);
+    },
+    [mutate]
+  );
+
+  const publishInvitation = useCallback(
+    async (id: string) => {
+      const updated = await invitationApi.publishInvitation(id);
+      await mutate(
+        (prev) => (prev ? prev.map((item) => (item.id === id ? updated : item)) : []),
+        false
+      );
+      return updated;
+    },
+    [mutate]
+  );
+
+  return {
+    invitations: data || [],
+    isLoading,
+    isError: Boolean(error),
+    error,
+    mutate,
+    deleteInvitation,
+    publishInvitation,
+  };
+}
+
+// Hook lấy chi tiết một thiệp để xem hoặc chỉnh sửa
 export function useInvitation(id?: string) {
   const { data, error, isLoading, mutate } = useSWR<InvitationData>(
     id ? `/invitations/${id}` : null,
@@ -21,17 +58,22 @@ export function useInvitation(id?: string) {
     }
   );
 
-  const updateInvitation = async (dto: UpdateInvitationDto) => {
-    if (!id) return;
-    try {
-      const updated = await invitationApi.updateInvitation(id, dto);
-      await mutate(updated, false); // Optimistic / local update
+  const updateInvitation = useCallback(
+    async (payload: Record<string, unknown>) => {
+      if (!id) return;
+      const updated = await invitationApi.updateInvitation(id, payload);
+      await mutate(updated, false);
       return updated;
-    } catch (err) {
-      await mutate(); // Revert on failure
-      throw err;
-    }
-  };
+    },
+    [id, mutate]
+  );
+
+  const publish = useCallback(async () => {
+    if (!id) return;
+    const updated = await invitationApi.publishInvitation(id);
+    await mutate(updated, false);
+    return updated;
+  }, [id, mutate]);
 
   return {
     invitation: data,
@@ -40,28 +82,6 @@ export function useInvitation(id?: string) {
     error,
     mutate,
     updateInvitation,
-  };
-}
-
-/**
- * Hook lấy danh sách thiệp của người dùng hiện tại
- */
-export function useMyInvitations(params?: { page?: number; limit?: number; search?: string }) {
-  const queryKey = params ? `/invitations?${JSON.stringify(params)}` : "/invitations";
-
-  const { data, error, isLoading, mutate } = useSWR<InvitationData[]>(
-    queryKey,
-    () => invitationApi.getMyInvitations(params),
-    {
-      revalidateOnFocus: true,
-    }
-  );
-
-  return {
-    invitations: data || [],
-    isLoading,
-    isError: Boolean(error),
-    error,
-    mutate,
+    publish,
   };
 }

@@ -7,8 +7,18 @@ import { shadows } from "@/theme/shadows";
 import { fontWeights } from "@/theme/typography";
 
 export interface ButtonProps extends Omit<MuiButtonProps, "variant" | "color"> {
-  variant?: "primary" | "secondary" | "gradient" | "outline" | "ghost";
+  variant?:
+    | "primary"
+    | "secondary"
+    | "gradient"
+    | "outline"
+    | "ghost"
+    | "contained"
+    | "outlined"
+    | "text";
+  color?: "primary" | "secondary" | "error" | "info" | "success" | "warning" | "inherit";
   isLoading?: boolean;
+  loading?: boolean;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
   target?: string;
@@ -23,6 +33,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       children,
       variant = "primary",
       isLoading = false,
+      loading = false,
       leftIcon,
       rightIcon,
       disabled,
@@ -31,6 +42,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref
   ) => {
+    const isSpinning = isLoading || loading;
     let customSx = {};
 
     switch (variant) {
@@ -83,6 +95,42 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           transition: "all 0.2s ease",
         };
         break;
+      case "contained":
+        customSx = {
+          background: colors.gold.gradient,
+          color: colors.text.inverse,
+          boxShadow: shadows.goldSm,
+          "&:hover": {
+            boxShadow: shadows.goldMd,
+            transform: "translateY(-1px)",
+          },
+          transition: "all 0.25s ease",
+        };
+        break;
+      case "outlined":
+        customSx = {
+          backgroundColor: "transparent",
+          color: colors.gold.dark,
+          border: `1px solid ${colors.border.gold}`,
+          "&:hover": {
+            backgroundColor: "rgba(183, 134, 40, 0.04)",
+            borderColor: colors.gold.main,
+            transform: "translateY(-1px)",
+          },
+          transition: "all 0.25s ease",
+        };
+        break;
+      case "text":
+        customSx = {
+          backgroundColor: "transparent",
+          color: colors.text.primary,
+          "&:hover": {
+            backgroundColor: "rgba(183, 134, 40, 0.06)",
+            color: colors.gold.dark,
+          },
+          transition: "all 0.2s ease",
+        };
+        break;
       case "primary":
       default:
         customSx = {
@@ -102,15 +150,15 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <MuiButton
         ref={ref}
-        disabled={disabled || isLoading}
+        disabled={disabled || isSpinning}
         startIcon={
-          isLoading ? (
-            <CircularProgress size={20} color="inherit" />
+          isSpinning ? (
+            <CircularProgress size={18} color="inherit" />
           ) : (
             leftIcon
           )
         }
-        endIcon={!isLoading ? rightIcon : undefined}
+        endIcon={!isSpinning ? rightIcon : undefined}
         sx={{
           borderRadius: `${borderRadius.sm}px`,
           textTransform: "none",

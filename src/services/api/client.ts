@@ -1,3 +1,4 @@
+import axios, { type AxiosInstance, type AxiosRequestConfig, type AxiosError } from "axios";
 import { envConfig } from "@/config/env.config";
 import { STORAGE_KEYS } from "@/constants/storage.constant";
 
@@ -31,171 +32,99 @@ export interface ApiResponse<T = unknown> {
   };
 }
 
-export interface RequestOptions extends RequestInit {
-  params?: Record<string, string | number | boolean | undefined>;
-  token?: string;
-}
-
-// Lấy Auth Token từ client storage
-function getClientAuthToken(): string | null {
-  if (typeof window === "undefined") return null;
-  return (
-    localStorage.getItem(STORAGE_KEYS.AUTH_TOKEN) ||
-    sessionStorage.getItem(STORAGE_KEYS.AUTH_TOKEN)
-  );
-}
-
-// HTTP Client trung tâm phục vụ toàn bộ API Services
-async function request<T>(
-  endpoint: string,
-  options: RequestOptions = {}
-): Promise<T> {
-  const { params, token, headers = {}, ...customConfig } = options;
-
-  // Xử lý query params
-  let url = endpoint.startsWith("http")
-    ? endpoint
-    : `${envConfig.apiUrl}${endpoint.startsWith("/") ? "" : "/"}${endpoint}`;
-
-  if (params) {
-    const searchParams = new URLSearchParams();
-    Object.entries(params).forEach(([key, val]) => {
-      if (val !== undefined && val !== null) {
-        searchParams.append(key, String(val));
-      }
-    });
-    const queryString = searchParams.toString();
-    if (queryString) {
-      url += (url.includes("?") ? "&" : "?") + queryString;
-    }
-  }
-
-  // Tự động gắn Authorization token nếu có
-  const authToken = token || getClientAuthToken();
-  const defaultHeaders: HeadersInit = {
+// Khởi tạo Axios Instance cấu hình chuẩn cho Backend
+export const axiosInstance: AxiosInstance = axios.create({
+  baseURL: envConfig.apiUrl,
+  timeout: 30000,
+  withCredentials: true,
+  headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
-  };
+  },
+});
 
-  if (authToken) {
-    defaultHeaders["Authorization"] = `Bearer ${authToken}`;
+// Request Interceptor: Tự động đính kèm Bearer Token
+axiosInstance.interceptors.request.use(
+  (config) => {
+    if (typeof window !== "undefined") {
+      const token =
+        localStorage.getItem(STORAGE_KEYS.AUTH_TOKEN) ||
+        sessionStorage.getItem(STORAGE_KEYS.AUTH_TOKEN);
+
+      if (token && config.headers) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
+// Response Interceptor: Chuẩn hóa dữ liệu trả về và xử lý mã lỗi
+axiosInstance.interceptors.response.use(
+  (response) => {
+    const data = response.data;
+    // Bóc tách data nếu backend trả về wrapper { data: ... }
+    if (data && typeof data === "object" && "data" in data) {
+      return data.data;
+    }
+    return data;
+  },
+  (error: AxiosError<{ message?: string | string[]; error?: string; errors?: Record<string, string[]> }>) => {
+    const statusCode = error.response?.status || 500;
+    const responseData = error.response?.data;
+
+    let message = "Đã xảy ra lỗi kết nối đến máy chủ";
+    if (responseData?.message) {
+      message = Array.isArray(responseData.message)
+        ? responseData.message.join(", ")
+        : responseData.message;
+    } else if (responseData?.error) {
+      message = responseData.error;
+    } else if (error.message) {
+      message = error.message;
+    }
+
+    return Promise.reject(new ApiError(message, statusCode, responseData?.errors));
   }
+);
 
-  // Khởi tạo fetch request
-  const config: RequestInit = {
-    headers: {
-      ...defaultHeaders,
-      ...(headers as Record<string, string>),
-    },
-    ...customConfig,
-  };
-
-  try {
-    const response = await fetch(url, config);
-
-    // Xử lý khi API trả về 204 No Content
-    if (response.status === 204) {
-      return {} as T;
-    }
-
-    const data = await response.json().catch(() => ({}));
-
-    if (!response.ok) {
-      const errorMessage =
-        data?.message ||
-        data?.error ||
-        `Lỗi hệ thống (${response.status}): ${response.statusText}`;
-
-      throw new ApiError(
-        Array.isArray(errorMessage) ? errorMessage.join(", ") : errorMessage,
-        response.status,
-        data?.errors
-      );
-    }
-
-    return (data?.data !== undefined ? data.data : data) as T;
-  } catch (error) {
-    if (error instanceof ApiError) {
-      throw error;
-    }
-    throw new ApiError(
-      error instanceof Error ? error.message : "Đã xảy ra lỗi kết nối",
-      500
-    );
-  }
-}
-
+// HTTP Client đóng gói các phương thức RESTful
 export const httpClient = {
-  get<T>(endpoint: string, options?: RequestOptions): Promise<T> {
-    return request<T>(endpoint, { ...options, method: "GET" });
+  async get<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
+    const response = await axiosInstance.get(url, config);
+    return response as unknown as T;
   },
 
-  post<T>(endpoint: string, body?: unknown, options?: RequestOptions): Promise<T> {
-    return request<T>(endpoint, {
-      ...options,
-      method: "POST",
-      body: body ? JSON.stringify(body) : undefined,
+  async post<T>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<T> {
+    const response = await axiosInstance.post(url, data, config);
+    return response as unknown as T;
+  },
+
+  async put<T>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<T> {
+    const response = await axiosInstance.put(url, data, config);
+    return response as unknown as T;
+  },
+
+  async patch<T>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<T> {
+    const response = await axiosInstance.patch(url, data, config);
+    return response as unknown as T;
+  },
+
+  async delete<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
+    const response = await axiosInstance.delete(url, config);
+    return response as unknown as T;
+  },
+
+  // Upload file qua FormData với header multipart/form-data
+  async upload<T>(url: string, formData: FormData, config?: AxiosRequestConfig): Promise<T> {
+    const response = await axiosInstance.post(url, formData, {
+      ...config,
+      headers: {
+        ...config?.headers,
+        "Content-Type": "multipart/form-data",
+      },
     });
-  },
-
-  put<T>(endpoint: string, body?: unknown, options?: RequestOptions): Promise<T> {
-    return request<T>(endpoint, {
-      ...options,
-      method: "PUT",
-      body: body ? JSON.stringify(body) : undefined,
-    });
-  },
-
-  patch<T>(endpoint: string, body?: unknown, options?: RequestOptions): Promise<T> {
-    return request<T>(endpoint, {
-      ...options,
-      method: "PATCH",
-      body: body ? JSON.stringify(body) : undefined,
-    });
-  },
-
-  delete<T>(endpoint: string, options?: RequestOptions): Promise<T> {
-    return request<T>(endpoint, { ...options, method: "DELETE" });
-  },
-
-  // Tải lên file ảnh hoặc âm thanh dạng FormData
-  async upload<T>(
-    endpoint: string,
-    formData: FormData,
-    options?: RequestOptions
-  ): Promise<T> {
-    const { headers = {}, ...rest } = options || {};
-    const authToken = options?.token || getClientAuthToken();
-
-    const uploadHeaders: HeadersInit = {
-      Accept: "application/json",
-      ...(headers as Record<string, string>),
-    };
-
-    if (authToken) {
-      uploadHeaders["Authorization"] = `Bearer ${authToken}`;
-    }
-
-    const url = endpoint.startsWith("http")
-      ? endpoint
-      : `${envConfig.apiUrl}${endpoint.startsWith("/") ? "" : "/"}${endpoint}`;
-
-    const response = await fetch(url, {
-      ...rest,
-      method: "POST",
-      headers: uploadHeaders,
-      body: formData,
-    });
-
-    const data = await response.json().catch(() => ({}));
-    if (!response.ok) {
-      throw new ApiError(
-        data?.message || "Tải lên tệp thất bại",
-        response.status,
-        data?.errors
-      );
-    }
-
-    return (data?.data !== undefined ? data.data : data) as T;
+    return response as unknown as T;
   },
 };

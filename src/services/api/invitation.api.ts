@@ -13,8 +13,8 @@ export type UpdateInvitationDto = Partial<InvitationData>;
 
 export const invitationApi = {
   // Lấy danh sách thiệp của người dùng hiện tại (Dashboard)
-  getMyInvitations(params?: { page?: number; limit?: number; search?: string }): Promise<InvitationData[]> {
-    return httpClient.get<InvitationData[]>("/invitations", { params });
+  getMyInvitations(): Promise<InvitationData[]> {
+    return httpClient.get<InvitationData[]>("/invitations/me");
   },
 
   // Lấy chi tiết thiệp để chỉnh sửa trong Editor
@@ -27,23 +27,23 @@ export const invitationApi = {
     return httpClient.get<InvitationData>(`/invitations/public/${slug}`);
   },
 
-  // Tạo thiệp mới từ template
-  createInvitation(dto: CreateInvitationDto): Promise<InvitationData> {
-    return httpClient.post<InvitationData>("/invitations", dto);
+  // Tạo thiệp mới
+  createInvitation(payload: Record<string, unknown>): Promise<InvitationData> {
+    return httpClient.post<InvitationData>("/invitations", payload);
   },
 
   // Cập nhật nội dung thiệp
-  updateInvitation(id: string, dto: UpdateInvitationDto): Promise<InvitationData> {
-    return httpClient.put<InvitationData>(`/invitations/${id}`, dto);
+  updateInvitation(id: string, payload: Record<string, unknown>): Promise<InvitationData> {
+    return httpClient.put<InvitationData>(`/invitations/${id}`, payload);
   },
 
   // Xóa thiệp
-  deleteInvitation(id: string): Promise<{ success: boolean }> {
-    return httpClient.delete<{ success: boolean }>(`/invitations/${id}`);
+  deleteInvitation(id: string): Promise<{ success?: boolean }> {
+    return httpClient.delete<{ success?: boolean }>(`/invitations/${id}`);
   },
 
-  // Bật hoặc tắt trạng thái xuất bản thiệp
-  togglePublish(id: string, isPublished: boolean): Promise<InvitationData> {
-    return httpClient.patch<InvitationData>(`/invitations/${id}/publish`, { isPublished });
+  // Xuất bản thiệp chính thức
+  publishInvitation(id: string): Promise<InvitationData> {
+    return httpClient.post<InvitationData>(`/invitations/${id}/publish`);
   },
 };

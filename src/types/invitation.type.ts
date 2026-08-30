@@ -92,6 +92,7 @@ export interface Invitation extends BaseEntity {
   templateId?: string;
 
   // Trạng thái xuất bản
+  status?: "DRAFT" | "PUBLISHED" | "ARCHIVED";
   isPublished: boolean;
   publishedAt?: string | null;
   passwordProtected?: boolean;
